@@ -9,12 +9,14 @@ class User(AbstractUser):
 
 class Teacher(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    name = models.CharField(max_length=50)#
+    user = models.CharField(max_length=20, primary_key=True)
+    name = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
     subject = models.CharField(max_length=50)
     Age = models.CharField(max_length=10)
     per_hour = models.CharField(max_length=50)
+    password = models.CharField(max_length=50)
+
  #teacher_profile_pic = models.ImageField(upload_to="classroom/teacher_profile_pic", blank=True)
  #description = models.TextField()
  #schedule = models.CharField(max_length=250)
@@ -22,3 +24,9 @@ class Teacher(models.Model):
         return self.name
 
 
+
+
+class Register_Teacher(models.Model):
+
+    username = models.CharField(max_length=20, primary_key=True)
+    password = models.CharField(max_length=50)
