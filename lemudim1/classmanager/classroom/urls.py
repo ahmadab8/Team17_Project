@@ -1,3 +1,5 @@
 from django.urls import path
-from classroom import views
-
+from . import views
+urlpatterns = [
+    path('signup/',views.signup,name='signup'),
+]
