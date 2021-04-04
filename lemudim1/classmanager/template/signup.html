@@ -220,10 +220,11 @@ span.input-group-addon i {
 						</div>
 
 						<div class="form-group ">
-							<input type="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register">
+							<input type="submit" id="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register">
 						</div>
 
 					</form>
+					<a style="color:white" href="#">Already have an account.</a>
 				</div>
 			</div>
 		</div>
@@ -232,6 +233,31 @@ span.input-group-addon i {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="sweetalert2.all.min.js"></script>
+	<script>
+
+		$("#submit").click(function(){
+			var name = $("#name").val();
+			var username = $("#username").val();
+			var email = $("#email").val();
+			var subject = $("#subject").val();
+			var Age = $("#Age").val();
+			var per_hour = $("#per_hour").val();
+			var password = $("#password").val();
+			var confirm = $("#confirm").val();
+
+			if(name == '' || username == '' || email == '' || subject == '' || Age == '' || per_hour == '' || password == '' || confirm == ''){
+				alert("missing fields!!");
+			}
+			else if(password != confirm){
+				alert("password not match");
+				}
+			else{
+				alert("Thank You!");
+				}
+		});
+	</script>
 	</body>
 
 {% endblock %}
