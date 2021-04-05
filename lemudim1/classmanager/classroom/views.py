@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Teacher
+from .models import Teacher, Student
 from .models import Register_Teacher
 
 # Create your views here.
@@ -30,7 +30,25 @@ def signup(request):
     return render(request,'signup.html',context)
 
 def StudentSignUp(request):
-            return render(request,'StudentSignUp.html')
+        if request.method == 'POST':
+            first_name = request.POST['first_name']
+            email = request.POST['email']
+            user = request.POST['username']
+            Last_name = request.POST['Last_name']
+            password = request.POST['password']
+            confirm = request.POST['confirm']
+            print(Last_name, email, user, password, confirm)
+            obj = Student()
+            obj.first_name = first_name
+            obj.email = email
+            obj.Last_name =Last_name
+            obj.user = user
+            obj.password = password
+            obj.save()
+
+        context = {}
+        return render(request, 'StudentSignUp.html', context)
+
 
 
 def TeacherRegister(request):

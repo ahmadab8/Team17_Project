@@ -22,7 +22,15 @@ class Teacher(models.Model):
  #schedule = models.CharField(max_length=250)
     def __str__(self):
         return self.name
+class Student(models.Model):
 
+    user = models.CharField(max_length=20, primary_key=True)
+    Last_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+
+    first_name = models.CharField(max_length=10)
+
+    password = models.CharField(max_length=50)
 
 
 
