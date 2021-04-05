@@ -63,3 +63,10 @@ def TeacherRegister(request):
         obj.save()
     context = {}
     return render(request, 'TeacherRegister.html', context)
+
+def Tlogin(request):
+    context = {}
+    return render(request, 'Tlogin.html', context)
+def Slogin(request):
+    context = {}
+    return render(request, 'Tlogin.html', context)
