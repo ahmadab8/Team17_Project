@@ -144,7 +144,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name" required/>
 								</div>
 							</div>
 						</div>
@@ -154,7 +154,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+									<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
 								</div>
 							</div>
 						</div>
@@ -164,7 +164,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
 								</div>
 							</div>
 						</div>
@@ -174,7 +174,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="subject" id="subject"  placeholder="subject"/>
+									<input type="text" class="form-control" name="subject" id="subject"  placeholder="subject" required/>
 								</div>
 							</div>
 						</div>
@@ -194,7 +194,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="per_hour" id="per_hour"  placeholder="per_hour"/>
+									<input type="text" class="form-control" name="per_hour" id="per_hour"  placeholder="per_hour" required/>
 								</div>
 							</div>
 						</div>
@@ -204,7 +204,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required/>
 								</div>
 							</div>
 						</div>
@@ -214,7 +214,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" required/>
 								</div>
 							</div>
 						</div>
@@ -237,26 +237,20 @@ span.input-group-addon i {
 	<script src="sweetalert2.all.min.js"></script>
 	<script>
 
-		$("#submit").click(function(){
-			var name = $("#name").val();
-			var username = $("#username").val();
-			var email = $("#email").val();
-			var subject = $("#subject").val();
-			var Age = $("#Age").val();
-			var per_hour = $("#per_hour").val();
-			var password = $("#password").val();
-			var confirm = $("#confirm").val();
+		var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm");
 
-			if(name == '' || username == '' || email == '' || subject == '' || Age == '' || per_hour == '' || password == '' || confirm == ''){
-				alert("missing fields!!");
-			}
-			else if(password != confirm){
-				alert("password not match");
-				}
-			else{
-				alert("Thank You!");
-				}
-		});
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
 	</script>
 	</body>
 

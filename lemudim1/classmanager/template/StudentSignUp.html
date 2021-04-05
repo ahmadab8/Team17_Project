@@ -144,7 +144,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="first_name" id="first_name"  placeholder="Enter your First Name"/>
+									<input type="text" class="form-control" name="first_name" id="first_name"  placeholder="Enter your First Name" required/>
 								</div>
 							</div>
 						</div>
@@ -153,7 +153,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="Last_name" id="Last_name"  placeholder="Enter your Last Name"/>
+									<input type="text" class="form-control" name="Last_name" id="Last_name"  placeholder="Enter your Last Name" required/>
 								</div>
 							</div>
 						</div>
@@ -163,7 +163,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+									<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
 								</div>
 							</div>
 						</div>
@@ -173,7 +173,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
 								</div>
 							</div>
 						</div>
@@ -183,7 +183,7 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" required/>
 								</div>
 							</div>
 						</div>
@@ -193,13 +193,13 @@ span.input-group-addon i {
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" required/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group ">
-							<a href="https://deepak646.blogspot.com/" target="_blank" type="button" id="button" class="btn btn-primary btn-lg btn-block login-button">Register</a>
+							<input type="submit" id="submit" class="btn btn-primary btn-lg btn-block login-button" value="Register">
 						</div>
 
 					</form>
@@ -212,7 +212,23 @@ span.input-group-addon i {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+<script>
 
+		var password = document.getElementById("password")
+  , confirm_password = document.getElementById("confirm");
+
+function validatePassword(){
+  if(password.value != confirm_password.value) {
+    confirm_password.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirm_password.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirm_password.onkeyup = validatePassword;
+
+	</script>
 	</body>
 
 {% endblock %}
