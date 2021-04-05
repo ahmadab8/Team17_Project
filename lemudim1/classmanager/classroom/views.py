@@ -69,4 +69,4 @@ def Tlogin(request):
     return render(request, 'Tlogin.html', context)
 def Slogin(request):
     context = {}
-    return render(request, 'Tlogin.html', context)
+    return render(request, 'Slogin.html', context)
