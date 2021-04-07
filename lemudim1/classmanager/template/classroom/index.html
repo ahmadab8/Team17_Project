@@ -14,9 +14,9 @@
 {% endif %}
 
 <div class="banner">
-      <img src="{% static 'images/lemudim.PNG' %}" alt="">
+      <img src="{% static 'images/backg.PNG' %}" alt="">
       <div class="content">
-        <header>Lemudim</header>
+        <header>Private Lessions</header>
           <br>
 
           <br>
@@ -28,101 +28,8 @@
          <h1><em>Updates</em></h1>
         <h3>->פה תראו את כל העדכונים החדשות לאתר<-</h3>
         <marquee> ברוכים הבאים לאתר שלנו , פה תראו את כל העדכונים האחרונים באתר, בהצלחה לכולם -- צוות לימודים</marquee>
+            <p>תודה שהשתמשתם באתר שלנו</p>
         </div>
-
-    <div class="about">
-      <h1>Calculator</h1>
-      <p>האתר שלנו נותן לכל המשתמשים שלו או האורחים מחשבון פשוט , שתוכלו לחשב את הממוצע שלכם (לסטודנטים) או לחשב את הציון הסופי של כל סטודנט (למורים)</p>
-     <html>
-<head>
-   <script>
-      //function that display value
-      function dis(val)
-      {
-         document.getElementById("result").value+=val
-      }
-
-      //function that evaluates the digit and return result
-      function solve()
-      {
-         let x = document.getElementById("result").value
-         let y = eval(x)
-         document.getElementById("result").value = y
-      }
-
-      //function that clear the display
-      function clr()
-      {
-         document.getElementById("result").value = ""
-      }
-   </script>
-   <!-- for styling -->
-   <style>
-      .title{
-      margin-bottom: 10px;
-      text-align:center;
-      width: 210px;
-      color:darkred;
-      border: solid black 2px;
-      }
-
-      input[type="button"]
-      {
-      background-color:darkblue;
-      color: black;
-      border: solid black 2px;
-      width:100%
-      }
-
-      input[type="text"]
-      {
-      background-color:white;
-      border: solid black 2px;
-      width:100%
-      }
-   </style>
-</head>
-<!-- create table -->
-<body>
-   <div class = title >Lemudim Calculator</div>
-   <table border="1">
-      <tr>
-         <td colspan="3"><input type="text" id="result"/></td>
-         <!-- clr() function will call clr to clear all value -->
-         <td><input type="button" value="c" onclick="clr()"/> </td>
-      </tr>
-      <tr>
-         <!-- create button and assign value to each button -->
-         <!-- dis("1") will call function dis to display value -->
-         <td><input type="button" value="1" onclick="dis('1')"/> </td>
-         <td><input type="button" value="2" onclick="dis('2')"/> </td>
-         <td><input type="button" value="3" onclick="dis('3')"/> </td>
-         <td><input type="button" value="/" onclick="dis('/')"/> </td>
-      </tr>
-      <tr>
-         <td><input type="button" value="4" onclick="dis('4')"/> </td>
-         <td><input type="button" value="5" onclick="dis('5')"/> </td>
-         <td><input type="button" value="6" onclick="dis('6')"/> </td>
-         <td><input type="button" value="-" onclick="dis('-')"/> </td>
-      </tr>
-      <tr>
-         <td><input type="button" value="7" onclick="dis('7')"/> </td>
-         <td><input type="button" value="8" onclick="dis('8')"/> </td>
-         <td><input type="button" value="9" onclick="dis('9')"/> </td>
-         <td><input type="button" value="+" onclick="dis('+')"/> </td>
-      </tr>
-      <tr>
-         <td><input type="button" value="." onclick="dis('.')"/> </td>
-         <td><input type="button" value="0" onclick="dis('0')"/> </td>
-         <!-- solve function call function solve to evaluate value -->
-         <td><input type="button" value="=" onclick="solve()"/> </td>
-         <td><input type="button" value="*" onclick="dis('*')"/> </td>
-      </tr>
-   </table>
-</body>
-</html>
-
-     <p>תודה שהשמשתם באתר שלנו</p>
     </div>
 
     <div class="use-content">
@@ -131,7 +38,7 @@
         <div class="col-12 col-md-6">
           <div class="box">
             <div class="imgBx">
-              <img src="{% static 'images/abed.PNG' %}" alt="">
+              <img src="{% static 'images/shaalan.JPG' %}" alt="">
             </div>
             <div class="content">
               <h3>למורה</h3>
@@ -149,7 +56,7 @@
         <div class="col-12 col-md-6">
           <div class="box">
             <div class="imgBx">
-              <img src="{% static 'images/me.PNG' %}" alt="">
+              <img src="{% static 'images/ahmed.PNG' %}" alt="">
             </div>
             <div class="content">
               <h3>לסטודנט</h3>

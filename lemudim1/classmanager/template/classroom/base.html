@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Lemudim</title>
+    <title>Private Lessions</title>
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -61,9 +61,9 @@
           <li> <a href="#">Profile</a> </li>
           {% endif %}
           <li> <a href="#">Change Password</a> </li>
-          <li> <a href="#">Logout</a> </li>
+          <li> <a href="{% url 'classroom:logout' %}">Logout</a> </li>
           {% else %}
-          <li><a class="head-left" href="#">Login</a></li>
+          <li><a class="head-left" href="{% url 'classroom:login' %}">Login</a></li>
           <li><a class="head-left" href="{% url 'classroom:signup' %}">Sign Up</a></li>
         {% endif %}
       </ul>
