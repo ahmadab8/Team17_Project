@@ -1,4 +1,5 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
 
 from django.shortcuts import render,get_object_or_404,redirect
@@ -109,4 +110,19 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+@login_required
+def PasswordChange(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST , user=request.user)
 
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, "Password changed")
+            return redirect('home')
+        else:
+            return redirect('classroom:PasswordChange')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        args = {'form':form}
+        return render(request,'classroom/PasswordChange.html',args)
