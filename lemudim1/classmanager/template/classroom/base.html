@@ -60,7 +60,7 @@
           <li> <a href="#">Teacher list</a> </li>
           <li> <a href="#">Profile</a> </li>
           {% endif %}
-          <li> <a href="/classroom/PasswordChange">Change Password</a> </li>
+          <li> <a href="/classroom/change_password">Change Password</a> </li>
           <li> <a href="{% url 'classroom:logout' %}">Logout</a> </li>
           {% else %}
           <li><a class="head-left" href="{% url 'classroom:login' %}">Login</a></li>

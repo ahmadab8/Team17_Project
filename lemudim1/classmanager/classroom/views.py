@@ -111,7 +111,7 @@ def user_logout(request):
     return HttpResponseRedirect(reverse('home'))
 
 @login_required
-def PasswordChange(request):
+def change_password(request):
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST , user=request.user)
 
@@ -121,8 +121,8 @@ def PasswordChange(request):
             messages.success(request, "Password changed")
             return redirect('home')
         else:
-            return redirect('classroom:PasswordChange')
+            return redirect('classroom:change_password')
     else:
         form = PasswordChangeForm(user=request.user)
         args = {'form':form}
-        return render(request,'classroom/PasswordChange.html',args)
+        return render(request,'classroom/change_password.html',args)
