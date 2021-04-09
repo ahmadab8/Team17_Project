@@ -6,3 +6,4 @@ from .models import User,Student,Teacher
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student)
+admin.site.register(Teacher)
