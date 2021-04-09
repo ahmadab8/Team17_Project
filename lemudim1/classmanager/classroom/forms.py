@@ -7,11 +7,12 @@ from django.db import transaction
 class UserForm(UserCreationForm):
     class Meta():
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['username', 'password1', 'password2','email']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'answer'}),
             'password1': forms.PasswordInput(attrs={'class': 'answer'}),
             'password2': forms.PasswordInput(attrs={'class': 'answer'}),
+            'email': forms.PasswordInput(attrs={'class': 'answer'}),
         }
 
 
