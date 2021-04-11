@@ -11,7 +11,6 @@ from django.views.generic import  (View,TemplateView,
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-# Create your views here.
 from .forms import UserForm,TeacherProfileForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -22,7 +21,7 @@ from .models import Student,Teacher
 
 
 
-def TeacherSignUp(request): # *
+def TeacherSignUp(request): 
     user_type = 'teacher'
     registered = False
 
@@ -77,7 +76,7 @@ def StudentSignUp(request): # *
 
     return render(request,'classroom/student_signup.html',{'user_form':user_form,'student_profile_form':student_profile_form,'registered':registered,'user_type':user_type})
 
-def SignUp(request): # *
+def SignUp(request): 
     return render(request,'classroom/signup.html',{})
 
 
