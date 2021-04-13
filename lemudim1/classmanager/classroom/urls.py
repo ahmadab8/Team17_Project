@@ -13,8 +13,9 @@ urlpatterns = [
     path('logout/', views.user_logout, name="logout"),
     path('change_password/', views.change_password, name="change_password"),
 
+    path('student/<int:pk>/class_notice', views.class_notice, name="class_notice"),
 
-     path('reset_password/', authViews.PasswordResetView.as_view(template_name= "classroom/password_reset.html"), name="reset_password"),
+    path('reset_password/', authViews.PasswordResetView.as_view(template_name= "classroom/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', authViews.PasswordResetDoneView.as_view(template_name= "classroom/password_reset_sent.html"), name="reset_password_done"),
     path('reset/<uidb64>/<token>/', authViews.PasswordResetConfirmView.as_view(template_name= "classroom/password_reset_form.html"), name="reset_password_confirm"),
     path('reset_password_complete/', authViews.PasswordResetCompleteView.as_view(template_name= "classroom/password_reset_done.html"), name="reset_password_complete"),

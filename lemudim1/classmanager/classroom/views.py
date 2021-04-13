@@ -11,11 +11,12 @@ from django.views.generic import  (View,TemplateView,
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserForm,TeacherProfileForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm
+from .forms import UserForm,TeacherProfileForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm
 from django.urls import reverse
+from classroom import models
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from .models import Student,Teacher
+from .models import Student,Teacher,ClassNotice
 
 # Create your views here.
 
@@ -125,3 +126,10 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args = {'form':form}
         return render(request,'classroom/change_password.html',args)
+
+
+
+@login_required
+def class_notice(request,pk):
+    student = get_object_or_404(models.Student,pk=pk)
+    return render(request,'classroom/class_notice_list.html',{'student':student})
