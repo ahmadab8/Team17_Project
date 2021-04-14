@@ -16,7 +16,7 @@ from django.urls import reverse
 from classroom import models
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from .models import Student,Teacher,ClassNotice
+from .models import Student,Teacher,ClassNotice,StudentsInClass
 
 # Create your views here.
 
@@ -133,3 +133,49 @@ def change_password(request):
 def class_notice(request,pk):
     student = get_object_or_404(models.Student,pk=pk)
     return render(request,'classroom/class_notice_list.html',{'student':student})
+
+
+
+@login_required
+def add_notice(request):
+    notice_sent = False
+    teacher = request.user.Teacher
+    students = StudentsInClass.objects.filter(teacher=teacher)
+    students_list = [x.student for x in students]
+
+    if request.method == "POST":
+        notice = NoticeForm(request.POST)
+        if notice.is_valid():
+            object = notice.save(commit=False)
+            object.teacher = teacher
+            object.save()
+            object.students.add(*students_list)
+            notice_sent = True
+    else:
+        notice = NoticeForm()
+    return render(request,'classroom/write_notice.html',{'notice':notice,'notice_sent':notice_sent})
+
+
+
+
+def students_list(request):
+    query = request.GET.get("q", None)
+    students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
+    students_list = [x.student for x in students]
+    qs = Student.objects.all()
+    if query is not None:
+        qs = qs.filter(
+                Q(name__icontains=query)
+                )
+    qs_one = []
+    for x in qs:
+        if x in students_list:
+            pass
+        else:
+            qs_one.append(x)
+
+    context = {
+        "students_list": qs_one,
+    }
+    template = "classroom/students_list.html"
+    return render(request, template, context)

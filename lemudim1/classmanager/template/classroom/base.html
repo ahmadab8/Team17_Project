@@ -36,7 +36,7 @@
 
     <nav>
       <div class="toggle">
-        <a href="#">Lemudim</a>
+        <a href="{% url 'home' %}">Lemudim</a>
             
         <i class="fa fa-bars menu"></i>
       </div>
@@ -50,7 +50,7 @@
           <li> <a href="#">View Submissions</a> </li>
           <li> <a href="#">All Students List</a> </li>
           <li> <a href="#">Class Students List</a> </li>
-          <li> <a href="#">Write Notice</a> </li>
+          <li> <a href="{% url 'classroom:write_notice' %}">Write Notice</a> </li>
           <li> <a href="#">Inbox</a> </li>
           <li> <a href="#">Profile</a> </li>
           {% else %}

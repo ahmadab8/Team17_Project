@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.conf import settings
-#import misaka
+import misaka
 
 # Create your models here.
 
@@ -80,3 +80,4 @@ class ClassNotice(models.Model):
     class Meta:
         ordering = ['-created_at']
         unique_together = ['teacher', 'message']
+
