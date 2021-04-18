@@ -81,3 +81,30 @@ class ClassNotice(models.Model):
         ordering = ['-created_at']
         unique_together = ['teacher', 'message']
 
+class StudentMsg(models.Model):
+    teacher = models.ForeignKey(Teacher, related_name='given_msg', on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, related_name="msg", on_delete=models.CASCADE)
+    subject_name = models.CharField(max_length=250)
+    msg_obtained = models.TextField()
+
+    def __str__(self):
+        return self.subject_name
+
+
+class MessageToTeacher(models.Model):
+    student = models.ForeignKey(Student, related_name='student', on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now=True)
+    message = models.TextField()
+    message_html = models.TextField(editable=False)
+
+    def __str__(self):
+        return self.message
+
+    def save(self, *args, **kwargs):
+        self.message_html = misaka.html(self.message)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-created_at']
+        unique_together = ['student', 'message']

@@ -16,7 +16,7 @@ from django.urls import reverse
 from classroom import models
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from .models import Student,Teacher,ClassNotice,StudentsInClass
+from .models import Student,Teacher,ClassNotice,StudentsInClass,StudentMsg
 
 # Create your views here.
 
@@ -179,3 +179,18 @@ def students_list(request):
     }
     template = "classroom/students_list.html"
     return render(request, template, context)
+
+
+class StudentAllMsgList(LoginRequiredMixin, DetailView):
+    model = models.Student
+    template_name = "classroom/student_allmsg_list.html"
+    context_object_name = "student"
+    
+@login_required
+def student_msg_list(request, pk):
+    error = True
+    student = get_object_or_404(models.Student,pk=pk)
+    teacher = request.user.Teacher
+    given_msg = StudentMsg.objects.filter(teacher=teacher,student=student)
+    return render(request,'classroom/student_msg_list.html',{'student':student,'given_msg':given_msg})
+

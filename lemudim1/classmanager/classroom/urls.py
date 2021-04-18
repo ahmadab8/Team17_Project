@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('student/<int:pk>/class_notice', views.class_notice, name="class_notice"),
     path('teacher/write_notice', views.add_notice, name="write_notice"),
+    path('student/<int:pk>/all_msg', views.StudentAllMsgList.as_view(), name="all_msg_list"),
 
     path('reset_password/', authViews.PasswordResetView.as_view(template_name= "classroom/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', authViews.PasswordResetDoneView.as_view(template_name= "classroom/password_reset_sent.html"), name="reset_password_done"),
