@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Teacher, Student,ClassNotice
+from .models import User, Teacher, Student,ClassNotice,SubmitFile,ClassFile
 from django.db import transaction
 
 
@@ -64,3 +64,16 @@ class NoticeForm(forms.ModelForm):
     class Meta():
         model = ClassNotice
         fields = ['message']
+
+
+
+class FileForm(forms.ModelForm):
+    class Meta():
+        model = ClassFile
+        fields = ['file_name', 'file']
+
+
+class SubmitForm(forms.ModelForm):
+    class Meta():
+        model = SubmitFile
+        fields = ['submit']

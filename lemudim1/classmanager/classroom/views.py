@@ -11,12 +11,12 @@ from django.views.generic import  (View,TemplateView,
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserForm,TeacherProfileForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm
 from django.urls import reverse
 from classroom import models
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from .models import Student,Teacher,ClassNotice,StudentsInClass,StudentMsg
+from .models import Student,Teacher,ClassNotice,StudentsInClass,StudentMsg,SubmitFile,ClassFile
 
 # Create your views here.
 
@@ -194,3 +194,28 @@ def student_msg_list(request, pk):
     given_msg = StudentMsg.objects.filter(teacher=teacher,student=student)
     return render(request,'classroom/student_msg_list.html',{'student':student,'given_msg':given_msg})
 
+
+@login_required
+def class_file(request):
+    student = request.user.Student
+    file = SubmitFile.objects.filter(student=student)
+    file_list = [x.submitted_file for x in file]
+    return render(request,'classroom/class_file.html',{'student':student,'file_list':file_list})
+
+@login_required
+def submit_file(request, id=None):
+    student = request.user.Student
+    file = get_object_or_404(ClassFile, id=id)
+    teacher = file.teacher
+    if request.method == 'POST':
+        form = SubmitForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.teacher = teacher
+            upload.student = student
+            upload.submitted_file = file
+            upload.save()
+            return redirect('classroom:class_file')
+    else:
+        form = SubmitForm()
+    return render(request,'classroom/submit_file.html',{'form':form,})
