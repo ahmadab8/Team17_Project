@@ -203,6 +203,24 @@ def class_file(request):
     return render(request,'classroom/class_file.html',{'student':student,'file_list':file_list})
 
 @login_required
+def upload_file(request):
+    file_uploaded = False
+    teacher = request.user.Teacher
+    students = Student.objects.filter(user_student_name__teacher=request.user.Teacher)
+    if request.method == 'POST':
+        form = FileForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload = form.save(commit=False)
+            upload.teacher = teacher
+            students = Student.objects.filter(user_student_name__teacher=request.user.Teacher)
+            upload.save()
+            upload.student.add(*students)
+            file_uploaded = True
+    else:
+        form = FileForm()
+    return render(request,'classroom/upload_file.html',{'form':form,'file_uploaded':file_uploaded})
+
+@login_required
 def submit_file(request, id=None):
     student = request.user.Student
     file = get_object_or_404(ClassFile, id=id)

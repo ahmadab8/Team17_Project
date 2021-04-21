@@ -45,7 +45,7 @@
       <ul>
         {% if user.is_authenticated %}
         {% if user.is_teacher%}
-          <li> <a href="#">Upload File</a> </li>
+          <li> <a href="{% url 'classroom:upload_file' %}">Upload File</a> </li>
           <li> <a href="#">File list</a> </li>
           <li> <a href="#">View Submissions</a> </li>
           <li> <a href="#">All Students List</a> </li>

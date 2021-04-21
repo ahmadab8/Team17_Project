@@ -1,5 +1,5 @@
 from django.urls import path
-from classroom import views
+from . import views
 
 from django.contrib.auth import views as authViews
 
@@ -17,6 +17,7 @@ urlpatterns = [
     path('teacher/write_notice', views.add_notice, name="write_notice"),
     path('student/<int:pk>/all_msg', views.StudentAllMsgList.as_view(), name="all_msg_list"),
     path('class_file/', views.class_file, name="class_file"),
+    path('upload_file/', views.upload_file, name="upload_file"),
     path('submit_file/<int:id>/', views.submit_file, name="submit_file"),
 
 
