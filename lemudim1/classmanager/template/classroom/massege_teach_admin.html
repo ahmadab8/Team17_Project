@@ -1,0 +1,22 @@
+{% extends 'classroom/base.html' %}
+{% block content %}
+
+<div class="container">
+<div class="jumbotron">
+  {% if notice_sent %}
+  <h1>Your message sent successfully.</h1>
+  {% else %}
+  <h3>Please enter your message and recognize your self .</h3>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+    <TEXTAREA name="message1" ROWS="14" COLS="88"></TEXTAREA>
+    <br>
+    <input type="submit" class="btn btn-primary" style="background-color: forestgreen" value="send message">
+  </form>
+  {% endif %}
+</div>
+</div>
+
+
+{%  endblock %}

@@ -138,3 +138,18 @@ class SubmitFile(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+
+class message_teach_admin(models.Model):
+   # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
+    message = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.message
+
+class message_student_admin(models.Model):
+   # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
+    message = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.message

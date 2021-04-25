@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
+from . models import  message_teach_admin
+from . models import  message_student_admin
 
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
@@ -237,3 +239,28 @@ def submit_file(request, id=None):
     else:
         form = SubmitForm()
     return render(request,'classroom/submit_file.html',{'form':form,})
+@login_required
+def massege_teach_admin(request):
+    if request.method == 'POST':
+        message1 = request.POST['message1']
+        print(message1)
+        obj = message_teach_admin()
+        obj.message=message1
+        obj.save()
+
+    context={}
+
+    return render(request,'classroom/massege_teach_admin.html',{})
+
+@login_required
+def massage_student_admin(request):
+    if request.method == 'POST':
+        message2 = request.POST['message2']
+        print(message2)
+        obj2 = message_student_admin()
+        obj2.message=message2
+        obj2.save()
+
+    context={}
+
+    return render(request,'classroom/message_student_admin.html',{})

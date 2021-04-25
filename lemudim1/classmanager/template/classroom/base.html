@@ -53,11 +53,13 @@
           <li> <a href="{% url 'classroom:write_notice' %}">Write Notice</a> </li>
           <li> <a href="#">Inbox</a> </li>
           <li> <a href="#">Profile</a> </li>
+          <li> <a href="{% url 'classroom:massege_teach_admin' %}">Contact with admin</a> </li>
           {% else %}
           <li> <a href="{% url 'classroom:all_msg_list' pk=user.pk %}">Inbox</a> </li>
           <li> <a href="{% url 'classroom:class_notice' pk=user.pk %}">Class Notice</a> </li>
           <li> <a href="#">Class File</a> </li>
           <li> <a href="#">Teacher list</a> </li>
+          <li> <a href="{% url 'classroom:message_student_admin' %}">Contact with admin</a> </li>
           <li> <a href="#">Profile</a> </li>
           {% endif %}
           <li> <a href="/classroom/change_password">Change Password</a> </li>

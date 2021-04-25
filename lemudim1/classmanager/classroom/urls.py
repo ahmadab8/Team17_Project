@@ -19,7 +19,8 @@ urlpatterns = [
     path('class_file/', views.class_file, name="class_file"),
     path('upload_file/', views.upload_file, name="upload_file"),
     path('submit_file/<int:id>/', views.submit_file, name="submit_file"),
-
+    path('massege_teach_admin/', views.massege_teach_admin, name="massege_teach_admin"),
+    path('message_student_admin/', views.massage_student_admin, name="message_student_admin"),
 
     path('reset_password/', authViews.PasswordResetView.as_view(template_name= "classroom/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', authViews.PasswordResetDoneView.as_view(template_name= "classroom/password_reset_sent.html"), name="reset_password_done"),
