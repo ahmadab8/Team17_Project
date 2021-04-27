@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
 from django.conf import settings
-#import misaka
+import misaka
 
 # Create your models here.
 
@@ -90,7 +90,7 @@ class StudentMsg(models.Model):
     def __str__(self):
         return self.subject_name
 
-
+#msg between student and teacher
 class MessageToTeacher(models.Model):
     student = models.ForeignKey(Student, related_name='student', on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
