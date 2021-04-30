@@ -286,3 +286,26 @@ def TeacherUpdateView(request,pk):
     else:
         form = TeacherProfileUpdateForm(request.POST or None,instance=teacher)
     return render(request,'classroom/teacher_update_page.html',{'profile_updated':profile_updated,'form':form})
+
+
+def class_students_list(request):
+    query = request.GET.get("q", None)
+    students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
+    students_list = [x.student for x in students]
+    qs = Student.objects.all()
+    if query is not None:
+        qs = qs.filter(
+                Q(name__icontains=query)
+                )
+    qs_one = []
+    for x in qs:
+        if x in students_list:
+            qs_one.append(x)
+        else:
+            pass
+    context = {
+        "class_students_list": qs_one,
+    }
+    template = "classroom/class_students_list.html"
+    return render(request, template, context)
+
