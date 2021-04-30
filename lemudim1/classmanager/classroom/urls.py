@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('student/<int:pk>/class_notice', views.class_notice, name="class_notice"),
     path('teacher/write_notice', views.add_notice, name="write_notice"),
+    path('teacher/<int:pk>/', views.TeacherDetailView.as_view(), name="teacher_detail"),
+    path('update/teacher/<int:pk>/', views.TeacherUpdateView, name="teacher_update"),
     path('student/<int:pk>/all_msg', views.StudentAllMsgList.as_view(), name="all_msg_list"),
     path('class_file/', views.class_file, name="class_file"),
     path('upload_file/', views.upload_file, name="upload_file"),

@@ -264,3 +264,25 @@ def massage_student_admin(request):
     context={}
 
     return render(request,'classroom/message_student_admin.html',{})
+
+class TeacherDetailView(LoginRequiredMixin,DetailView):
+    context_object_name = "teacher"
+    model = models.Teacher
+    template_name = 'classroom/teacher_detail_page.html'
+
+
+@login_required
+def TeacherUpdateView(request,pk):
+    profile_updated = False
+    teacher = get_object_or_404(models.Teacher,pk=pk)
+    if request.method == "POST":
+        form = TeacherProfileUpdateForm(request.POST,instance=teacher)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            if 'teacher_profile_pic' in request.FILES:
+                profile.teacher_profile_pic = request.FILES['teacher_profile_pic']
+            profile.save()
+            profile_updated = True
+    else:
+        form = TeacherProfileUpdateForm(request.POST or None,instance=teacher)
+    return render(request,'classroom/teacher_update_page.html',{'profile_updated':profile_updated,'form':form})

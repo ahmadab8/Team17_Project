@@ -52,7 +52,7 @@
           <li> <a href="#">Class Students List</a> </li>
           <li> <a href="{% url 'classroom:write_notice' %}">Write Notice</a> </li>
           <li> <a href="#">Inbox</a> </li>
-          <li> <a href="#">Profile</a> </li>
+          <li> <a href="{% url 'classroom:teacher_detail' pk=user.pk %}">Profile</a> </li>
           <li> <a href="{% url 'classroom:massege_teach_admin' %}">Contact with admin</a> </li>
           {% else %}
           <li> <a href="{% url 'classroom:all_msg_list' pk=user.pk %}">Inbox</a> </li>
