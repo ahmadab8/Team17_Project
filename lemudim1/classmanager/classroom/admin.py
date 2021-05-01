@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User,Student,Teacher,message_teach_admin,message_student_admin,MessageToTeacher
+from .models import User,Student,Teacher,message_teach_admin,message_student_admin,MessageToTeacher,StudentsInClass
 # Register your models here.
 
 
@@ -13,3 +13,5 @@ admin.site.register(message_student_admin)
 
 #msg between boy/girl school and teacher
 admin.site.register(MessageToTeacher)
+
+admin.site.register(StudentsInClass)

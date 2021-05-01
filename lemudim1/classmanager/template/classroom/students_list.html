@@ -14,9 +14,6 @@
     </button>
   </div>
   {% endif %}
-  <form method='GET' action="{% url 'classroom:students_list' %}" class="searchme">
-    <p>Search Student: <input type='search' name='q' placeholder='Search'></p>
-  </form>
   <div class="row">
   {% for student in students_list %}
   <div class="col-6 col-md-4">
