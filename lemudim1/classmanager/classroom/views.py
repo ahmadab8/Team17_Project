@@ -287,6 +287,23 @@ def TeacherUpdateView(request,pk):
         form = TeacherProfileUpdateForm(request.POST or None,instance=teacher)
     return render(request,'classroom/teacher_update_page.html',{'profile_updated':profile_updated,'form':form})
 
+class add_student(LoginRequiredMixin,generic.RedirectView):
+
+    def get_redirect_url(self,*args,**kwargs):
+        return reverse('classroom:students_list')
+
+    def get(self,request,*args,**kwargs):
+        student = get_object_or_404(models.Student,pk=self.kwargs.get('pk'))
+
+        try:
+            StudentsInClass.objects.create(teacher=self.request.user.Teacher,student=student)
+        except:
+            messages.warning(self.request,'warning, Student already in class!')
+        else:
+            messages.success(self.request,'{} successfully added!'.format(student.name))
+
+        return super().get(request,*args,**kwargs)
+
 
 def class_students_list(request):
     query = request.GET.get("q", None)
