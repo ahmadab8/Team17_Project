@@ -16,7 +16,7 @@ pipeline {
         stage('test') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
-                    dir("classmanager"){
+                    dir("lemudim1/classmanager"){
                         sh "python manage.py test"
                     }
                 }
