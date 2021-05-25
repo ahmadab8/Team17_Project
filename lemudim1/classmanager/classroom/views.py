@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
-from . models import  message_teach_admin
+from .models import message_teach_admin, Change_Salary_Demand
 from . models import  message_student_admin
 
 from django.shortcuts import render,get_object_or_404,redirect
@@ -264,6 +264,22 @@ def massage_student_admin(request):
     context={}
 
     return render(request,'classroom/message_student_admin.html',{})
+
+@login_required
+def change_Salary_Demand(request):
+    if request.method == 'POST':
+        salary = request.POST['Salary']
+        username = request.POST['username1']
+        print(salary)
+        print(username)
+        obj2 = Change_Salary_Demand()
+        obj2.TeacherName = username
+        obj2.salary = salary
+        obj2.save()
+
+    context={}
+
+    return render(request,'classroom/Change_Salary_Demand.html',context)
 
 class TeacherDetailView(LoginRequiredMixin,DetailView):
     context_object_name = "teacher"

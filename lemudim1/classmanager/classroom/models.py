@@ -146,6 +146,14 @@ class message_teach_admin(models.Model):
 
     def __str__(self):
         return self.message
+class Change_Salary_Demand(models.Model):
+   # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
+    TeacherName = models.CharField(max_length=50)
+    salary = models.CharField(max_length=20)
+    def __str__(self):
+       return self.TeacherName
+
+
 
 class message_student_admin(models.Model):
    # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)

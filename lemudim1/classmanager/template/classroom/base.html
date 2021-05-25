@@ -54,6 +54,7 @@
           <li> <a href="#">Inbox</a> </li>
           <li> <a href="{% url 'classroom:teacher_detail' pk=user.pk %}">Profile</a> </li>
           <li> <a href="{% url 'classroom:massege_teach_admin' %}">Contact with admin</a> </li>
+          <li> <a href="{% url 'classroom:Change_Salary_Demand' %}">Ask For new salary</a> </li>
           {% else %}
           <li> <a href="{% url 'classroom:all_msg_list' pk=user.pk %}">Inbox</a> </li>
           <li> <a href="{% url 'classroom:class_notice' pk=user.pk %}">Class Notice</a> </li>
