@@ -161,3 +161,11 @@ class message_student_admin(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class alert_for_users(models.Model):
+   # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
+    message = models.TextField(max_length=1000)
+
+    def __str__(self):
+        return self.message

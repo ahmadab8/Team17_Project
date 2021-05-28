@@ -1,0 +1,10 @@
+{% extends "classroom/base.html" %}
+{% block content %}
+  {% for msg in objs %}
+
+<p style="background-color: yellow ; color: red ; border-color: blue ; font-size: x-large " > * {{ msg }}</p>
+<br>
+
+  {% endfor %}
+
+{% endblock %}

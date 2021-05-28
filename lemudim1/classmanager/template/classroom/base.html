@@ -45,6 +45,7 @@
       <ul>
         {% if user.is_authenticated %}
         {% if user.is_teacher%}
+          <li> <a href="{% url 'classroom:alert' %}">Website news and updates</a> </li>
           <li> <a href="{% url 'classroom:upload_file' %}">Upload File</a> </li>
           <li> <a href="#">File list</a> </li>
           <li> <a href="#">View Submissions</a> </li>
@@ -56,6 +57,7 @@
           <li> <a href="{% url 'classroom:massege_teach_admin' %}">Contact with admin</a> </li>
           <li> <a href="{% url 'classroom:Change_Salary_Demand' %}">Ask For new salary</a> </li>
           {% else %}
+          <li> <a href="{% url 'classroom:alert' %}">Website news and updates</a> </li>
           <li> <a href="{% url 'classroom:all_msg_list' pk=user.pk %}">Inbox</a> </li>
           <li> <a href="{% url 'classroom:class_notice' pk=user.pk %}">Class Notice</a> </li>
           <li> <a href="#">Class File</a> </li>

@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render
-from .models import message_teach_admin, Change_Salary_Demand
+from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
 from . models import  message_student_admin
 
 from django.shortcuts import render,get_object_or_404,redirect
@@ -342,3 +342,7 @@ def class_students_list(request):
     template = "classroom/class_students_list.html"
     return render(request, template, context)
 
+def users_alert_messages(request):
+    objs = alert_for_users.objects.all()
+    context = {'objs': objs}
+    return render(request, "classroom/alert.html", context)
