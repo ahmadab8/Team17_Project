@@ -346,3 +346,14 @@ def users_alert_messages(request):
     objs = alert_for_users.objects.all()
     context = {'objs': objs}
     return render(request, "classroom/alert.html", context)
+
+def Contact(request):
+    if request.method=="POST":
+        name=request.POST['username']
+        email=request.POST['email']
+        phone=request.POST['phone']
+        subject=request.POST['subject']
+        desc=request.POST['desc']
+        contact = Contact(name=name, email=email,phone=phone,subject=subject,desc=desc)
+        contact.save()
+    return render(request,'classroom/contact.html')

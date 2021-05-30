@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User,Student,Teacher,message_teach_admin,message_student_admin,MessageToTeacher,StudentsInClass,ClassNotice,Change_Salary_Demand,alert_for_users
+from .models import User,Student,Teacher,message_teach_admin,message_student_admin,MessageToTeacher,StudentsInClass,ClassNotice,Change_Salary_Demand,alert_for_users,Contact
 # Register your models here.
 
 
@@ -21,5 +21,7 @@ admin.site.register(StudentsInClass)
 admin.site.register(Change_Salary_Demand)
 #alerts messages to website users
 admin.site.register(alert_for_users)
+#message from contact
+admin.site.register(Contact)
 
 
