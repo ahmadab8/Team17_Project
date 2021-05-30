@@ -48,9 +48,9 @@ class BaseTest(TestCase):
 
 class Unit_Test(TestCase):
 
-    #def test_signup_url_page_correctly(self):
-     #   response = self.client.get('/classroom/signup/')
-      #  self.assertEqual(response.status_code, 200)
+    def test_signup_url_page_correctly(self):
+        response = self.client.get('/classroom/signup/')
+        self.assertEqual(response.status_code, 200)
         
     
     #def test_signup_view_page_correctly(self):
