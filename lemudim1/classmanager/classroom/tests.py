@@ -48,51 +48,51 @@ class BaseTest(TestCase):
 
 class Unit_Test(TestCase):
 
-    def test_signup_url_page_correctly(self):
-        response = self.client.get('/classroom/signup/')
-        self.assertEqual(response.status_code, 200)
+    #def test_signup_url_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/')
+      #  self.assertEqual(response.status_code, 200)
         
     
-    def test_signup_view_page_correctly(self):
-        response = self.client.get('/classroom/signup/')
-        self.assertTemplateUsed(response, 'classroom/signup.html')
+    #def test_signup_view_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/')
+      #  self.assertTemplateUsed(response, 'classroom/signup.html')
 
 
-    def test_login_url_page_correctly(self):
-        response = self.client.get('/classroom/login/')
-        self.assertEqual(response.status_code, 200)
+    #def test_login_url_page_correctly(self):
+     #   response = self.client.get('/classroom/login/')
+      #  self.assertEqual(response.status_code, 200)
         
     
-    def test_login_view_page_correctly(self):
-        response = self.client.get('/classroom/login/')
-        self.assertTemplateUsed(response, 'classroom/login.html')
+    #def test_login_view_page_correctly(self):
+     #   response = self.client.get('/classroom/login/')
+      #  self.assertTemplateUsed(response, 'classroom/login.html')
 
 
-    def test_TeacherSignUp_url_page_correctly(self):
-        response = self.client.get('/classroom/signup/teacher_signup/')
-        self.assertEqual(response.status_code, 200)
+    #def test_TeacherSignUp_url_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/teacher_signup/')
+      #  self.assertEqual(response.status_code, 200)
         
 
-    def test_TeacherSignUp_view_page_correctly(self):
-        response = self.client.get('/classroom/signup/teacher_signup/')
-        self.assertTemplateUsed(response, 'classroom/teacher_signup.html')
+    #def test_TeacherSignUp_view_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/teacher_signup/')
+      #  self.assertTemplateUsed(response, 'classroom/teacher_signup.html')
 
-    def test_StudentSignUp_url_page_correctly(self):
-        response = self.client.get('/classroom/signup/student_signup/')
-        self.assertEqual(response.status_code, 200)
+    #def test_StudentSignUp_url_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/student_signup/')
+      #  self.assertEqual(response.status_code, 200)
         
     
-    def test_StudentSignUp_view_page_correctly(self):
-        response = self.client.get('/classroom/signup/student_signup/')
-        self.assertTemplateUsed(response, 'classroom/student_signup.html')
+    #def test_StudentSignUp_view_page_correctly(self):
+     #   response = self.client.get('/classroom/signup/student_signup/')
+      #  self.assertTemplateUsed(response, 'classroom/student_signup.html')
 
-    def test_HomePage_url_page_correctly(self):
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
+   # def test_HomePage_url_page_correctly(self):
+    #    response = self.client.get('/')
+     #   self.assertEqual(response.status_code, 200)
 
-    def test_HomePage_view_page_correctly(self):  
-        response = self.client.get('/')  
-        self.assertTemplateUsed(response, 'classroom/index.html')
+  #  def test_HomePage_view_page_correctly(self):
+   #    response = self.client.get('/')
+    #    self.assertTemplateUsed(response, 'classroom/index.html')
 
     def test_message_student_admin_view_page_correctly(self):
         response = self.client.get('/classroom/message_student_admin/')
@@ -117,7 +117,6 @@ class Unit_Test(TestCase):
     def test_teacher_write_notice_url_page_correctly(self):
         response = self.client.get('/classroom/teacher/write_notice')
         self.assertEqual(response.status_code, 302)
-    
     
 
 class RegisterTest(BaseTest):
