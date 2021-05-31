@@ -19,6 +19,7 @@ from classroom import models
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from .models import Student,Teacher,ClassNotice,StudentsInClass,StudentMsg,SubmitFile,ClassFile
+from django.db.models import Q
 
 # Create your views here.
 
