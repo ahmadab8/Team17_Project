@@ -13,7 +13,7 @@ from django.views.generic import  (View,TemplateView,
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
 from django.urls import reverse
 from classroom import models
 from django.contrib.auth.decorators import login_required
@@ -130,6 +130,25 @@ def change_password(request):
         return render(request,'classroom/change_password.html',args)
 
 
+@login_required
+def write_message(request,pk):
+    message_sent = False
+    teacher = get_object_or_404(models.Teacher,pk=pk)
+
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            mssg = form.save(commit=False)
+            mssg.teacher = teacher
+            mssg.student = request.user.Student
+            mssg.save()
+            message_sent = True
+    else:
+        form = MessageForm()
+    return render(request,'classroom/write_message.html',{'form':form,'teacher':teacher,'message_sent':message_sent})
+
+
+
 
 @login_required
 def class_notice(request,pk):
@@ -180,6 +199,19 @@ def students_list(request):
         "students_list": qs_one,
     }
     template = "classroom/students_list.html"
+    return render(request, template, context)
+
+def teachers_list(request):
+    query = request.GET.get("q", None)
+    qs = Teacher.objects.all()
+    if query is not None:
+        qs = qs.filter(
+                Q(subject_name__icontains=query)
+                )
+    context = {
+        "teachers_list": qs,
+    }
+    template = "classroom/teachers_list.html"
     return render(request, template, context)
 
 

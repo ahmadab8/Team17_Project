@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Teacher, Student,ClassNotice,SubmitFile,ClassFile
+from .models import User, Teacher, Student,ClassNotice,SubmitFile,ClassFile,MessageToTeacher
 from django.db import transaction
 
 
@@ -58,6 +58,11 @@ class StudentProfileUpdateForm(forms.ModelForm):
         model = Student
         fields = ['name', 'language', 'email', 'phone', 'student_of', 'student_profile_pic']
 
+
+class MessageForm(forms.ModelForm):
+    class Meta():
+        model = MessageToTeacher
+        fields = ['message']
 
 
 class NoticeForm(forms.ModelForm):

@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'css/searchbar.css' %}">
+    
     <link rel="stylesheet" href="{% static 'css/newbase.css' %}">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
@@ -61,7 +61,7 @@
           <li> <a href="{% url 'classroom:all_msg_list' pk=user.pk %}">Inbox</a> </li>
           <li> <a href="{% url 'classroom:class_notice' pk=user.pk %}">Class Notice</a> </li>
           <li> <a href="#">Class File</a> </li>
-          <li> <a href="#">Teacher list</a> </li>
+          <li> <a href="{% url 'classroom:teachers_list' %}">Teacher list</a> </li>
           <li> <a href="{% url 'classroom:message_student_admin' %}">Contact with admin</a> </li>
           <li> <a href="#">Profile</a> </li>
           {% endif %}
