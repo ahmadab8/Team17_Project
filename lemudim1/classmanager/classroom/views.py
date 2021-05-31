@@ -313,7 +313,12 @@ def change_Salary_Demand(request):
     context={}
 
     return render(request,'classroom/Change_Salary_Demand.html',context)
+class StudentDetailView(LoginRequiredMixin,DetailView):
+    context_object_name = "student"
+    model = models.Student
+    template_name = 'classroom/student_detail_page.html'
 
+    
 class TeacherDetailView(LoginRequiredMixin,DetailView):
     context_object_name = "teacher"
     model = models.Teacher
@@ -390,3 +395,19 @@ def Contact(request):
         contact = Contact(name=name, email=email,phone=phone,subject=subject,desc=desc)
         contact.save()
     return render(request,'classroom/contact.html')
+
+@login_required
+def StudentUpdateView(request,pk):
+    profile_updated = False
+    student = get_object_or_404(models.Student,pk=pk)
+    if request.method == "POST":
+        form = StudentProfileUpdateForm(request.POST,instance=student)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            if 'student_profile_pic' in request.FILES:
+                profile.student_profile_pic = request.FILES['student_profile_pic']
+            profile.save()
+            profile_updated = True
+    else:
+        form = StudentProfileUpdateForm(request.POST or None,instance=student)
+    return render(request,'classroom/student_update_page.html',{'profile_updated':profile_updated,'form':form})

@@ -63,7 +63,7 @@
           <li> <a href="#">Class File</a> </li>
           <li> <a href="{% url 'classroom:teachers_list' %}">Teacher list</a> </li>
           <li> <a href="{% url 'classroom:message_student_admin' %}">Contact with admin</a> </li>
-          <li> <a href="#">Profile</a> </li>
+          <li> <a href="{% url 'classroom:student_detail' pk=user.pk %}">Profile</a> </li>
           {% endif %}
           <li> <a href="/classroom/change_password">Change Password</a> </li>
           <li> <a href="{% url 'classroom:logout' %}">Logout</a> </li>
