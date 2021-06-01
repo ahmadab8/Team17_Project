@@ -149,6 +149,50 @@ def write_message(request,pk):
     return render(request,'classroom/write_message.html',{'form':form,'teacher':teacher,'message_sent':message_sent})
 
 
+def class_students_list(request):
+    query = request.GET.get("q", None)
+    students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
+    students_list = [x.student for x in students]
+    qs = Student.objects.all()
+    if query is not None:
+        qs = qs.filter(
+                Q(name__icontains=query)
+                )
+    qs_one = []
+    for x in qs:
+        if x in students_list:
+            qs_one.append(x)
+        else:
+            pass
+    context = {
+        "class_students_list": qs_one,
+    }
+    template = "classroom/class_students_list.html"
+    return render(request, template, context)
+
+class ClassStudentsListView(LoginRequiredMixin,DetailView):
+    model = models.Teacher
+    template_name = "classroom/class_students_list.html"
+    context_object_name = "teacher"
+
+class StudentAllMsgList(LoginRequiredMixin, DetailView):
+    model = models.Student
+    template_name = "classroom/student_allmsg_list.html"
+    context_object_name = "student"
+
+@login_required
+def update_msg(request, pk):
+    msg_updated = False
+    obj = get_object_or_404(StudentMsg,pk=pk)
+    if request.method == "POST":
+        form = MsgForm(request.POST,instance=obj)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.save()
+            msg_updated = True
+    else:
+        form = MsgForm(request.POST or None,instance=obj)
+    return render(request,'classroom/update_msg.html',{'form':form,'msg_updated':msg_updated})
 
 
 @login_required
@@ -238,6 +282,42 @@ def class_file(request):
     return render(request,'classroom/class_file.html',{'student':student,'file_list':file_list})
 
 @login_required
+def file_list(request):
+    teacher = request.user.Teacher
+    return render(request,'classroom/file_list.html',{'teacher':teacher})
+
+@login_required
+def update_file(request, id=None):
+    obj = get_object_or_404(ClassFile, id=id)
+    form = FileForm(request.POST or None, instance=obj)
+    context = {
+        "form": form
+    }
+    if form.is_valid():
+        obj = form.save(commit=False)
+        if 'file' in request.FILES:
+            obj.file = request.FILES['file']
+        obj.save()
+        messages.success(request, "Updated File".format(obj.file_name))
+        return redirect('classroom:file_list')
+    template = "classroom/update_file.html"
+    return render(request, template, context)
+
+@login_required
+def file_delete(request, id=None):
+    obj = get_object_or_404(ClassFile, id=id)
+    if request.method == "POST":
+        obj.delete()
+        messages.success(request, "File Removed")
+        return redirect('classroom:file_list')
+    context = {
+        "object": obj,
+    }
+    template = "classroom/file_delete.html"
+    return render(request, template, context)
+
+
+@login_required
 def upload_file(request):
     file_uploaded = False
     teacher = request.user.Teacher
@@ -272,6 +352,18 @@ def submit_file(request, id=None):
     else:
         form = SubmitForm()
     return render(request,'classroom/submit_file.html',{'form':form,})
+
+@login_required
+def messages_list(request,pk):
+    teacher = get_object_or_404(models.Teacher,pk=pk)
+    return render(request,'classroom/messages_list.html',{'teacher':teacher})
+
+
+@login_required
+def submit_list(request):
+    teacher = request.user.Teacher
+    return render(request,'classroom/submit_list.html',{'teacher':teacher})
+
 @login_required
 def massege_teach_admin(request):
     if request.method == 'POST':

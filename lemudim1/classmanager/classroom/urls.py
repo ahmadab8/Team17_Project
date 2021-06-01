@@ -19,7 +19,7 @@ urlpatterns = [
     path('teacher/<int:pk>/', views.TeacherDetailView.as_view(), name="teacher_detail"),
     path('update/teacher/<int:pk>/', views.TeacherUpdateView, name="teacher_update"),
     path('update/student/<int:pk>/', views.StudentUpdateView, name="student_update"),
-        path('student/<int:pk>/', views.StudentDetailView.as_view(), name="student_detail"),
+    path('student/<int:pk>/', views.StudentDetailView.as_view(), name="student_detail"),
     path('student/<int:pk>/all_msg', views.StudentAllMsgList.as_view(), name="all_msg_list"),
     path('student/<int:pk>/message', views.write_message, name="write_message"),
     path('class_file/', views.class_file, name="class_file"),
@@ -34,6 +34,15 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', authViews.PasswordResetConfirmView.as_view(template_name= "classroom/password_reset_form.html"), name="reset_password_confirm"),
     path('reset_password_complete/', authViews.PasswordResetCompleteView.as_view(template_name= "classroom/password_reset_done.html"), name="reset_password_complete"),
     path('alert/', views.users_alert_messages,name="alert"),
-    
+    path('file_list/', views.file_list, name="file_list"),
+    path('submit_list/', views.submit_list, name="submit_list"),
+    path('teacher/<int:pk>/messages_list', views.messages_list, name="messages_list"),
+    path('update_file/<int:id>/', views.update_file, name="update_file"),
+    path('file_delete/<int:id>/', views.file_delete, name="file_delete"),
+    path('teacher/class_students_list', views.class_students_list, name="class_student_list"),
+    path('student/<int:pk>/msg_list', views.student_msg_list, name="student_msg_list"),
+    path('msg/<int:pk>/update', views.update_msg, name="update_msg"),
+
+
 
 ]
