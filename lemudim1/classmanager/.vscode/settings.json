@@ -11,6 +11,5 @@
     "python.testing.unittestEnabled": true,
     "python.testing.pytestArgs": [
         "classroom"
-    ],
-      "python.linting.pylintArgs": ["--generate-members","--load-plugins","pylint_django"]
+    ]
 }

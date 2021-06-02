@@ -403,7 +403,6 @@ def massege_teach_admin(request):
         obj.message=message1
         obj.save()
     return render(request,'classroom/massege_teach_admin.html',{})
-
 @login_required
 def massage_student_admin(request):
     '''massage_student_admin'''
@@ -414,7 +413,6 @@ def massage_student_admin(request):
         obj2.message=message2
         obj2.save()
     return render(request,'classroom/message_student_admin.html',{})
-
 @login_required
 def change_Salary_Demand(request):
     '''change_Salary_Demand'''
@@ -427,11 +425,8 @@ def change_Salary_Demand(request):
         obj2.TeacherName = username
         obj2.salary = salary
         obj2.save()
-
     context={}
-
     return render(request,'classroom/Change_Salary_Demand.html',context)
-
 def Contact_Us(request):
     '''Contact_Us'''
     if request.method=="POST":
