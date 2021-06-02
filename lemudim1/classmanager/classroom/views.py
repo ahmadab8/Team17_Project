@@ -1,5 +1,5 @@
 '''views'''
-# pylint: disable=C0103,W0702,E0402,R0901
+# pylint: disable=C0103,W0702,E0402,R0901,R1705,E0602,W0622,E1305,W0621
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm

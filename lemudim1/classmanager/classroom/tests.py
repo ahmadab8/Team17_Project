@@ -2,7 +2,7 @@
 from django.test import TestCase,Client
 from django.core.validators import validate_email
 from django.contrib.auth.password_validation import validate_password
-# pylint: disable=E0602,C0116,W1309,C0103,E0402
+# pylint: disable=E0602,C0116,W1309,C0103,E0402,W0401,R0904
 from .views import *
 from .auth import *
 # Create your tests here.
