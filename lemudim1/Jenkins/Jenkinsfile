@@ -22,16 +22,15 @@ pipeline {
                 }
             }
         }
-         stage('Linting') { // Run pylint against your code
+          stage('Linting') { // Run pylint against your code
       steps {
         script {
-          dir("lemudim1/classmanager/classroom"){
           sh """
-          pylint urls.py
+          pylint **/*.py
           """
-          }
         }
       }
+    }
     }
 
 
