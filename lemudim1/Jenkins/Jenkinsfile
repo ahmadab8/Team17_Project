@@ -27,7 +27,7 @@ pipeline {
         script {
           dir("lemudim1/classmanager/classroom"){
           sh """
-          pylint **/*.py
+          pylint urls.py
           """
           }
         }
