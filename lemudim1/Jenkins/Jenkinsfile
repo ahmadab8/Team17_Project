@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-         stage('pylint') {
+         /*stage('pylint') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -30,7 +30,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
 
     }
