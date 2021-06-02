@@ -1,4 +1,5 @@
 '''admin rules'''
+# pylint: disable=E0402
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User,Student,Teacher,message_teach_admin,message_student_admin,\
