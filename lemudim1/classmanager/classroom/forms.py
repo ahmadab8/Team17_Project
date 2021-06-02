@@ -1,11 +1,14 @@
+'''forms page'''
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Teacher, Student,ClassNotice,SubmitFile,ClassFile,MessageToTeacher
-from django.db import transaction
+from .models import User, Teacher, Student,ClassNotice,SubmitFile,\
+    ClassFile,MessageToTeacher
 
 
 class UserForm(UserCreationForm):
+    '''UserForm'''
     class Meta():
+        '''Meta'''
         model = User
         fields = ['username', 'password1', 'password2','email']
         widgets = {
@@ -17,9 +20,13 @@ class UserForm(UserCreationForm):
 
 
 class TeacherProfileForm(forms.ModelForm):
+    '''TeacherProfileForm'''
+
     class Meta():
+        '''Meta'''
         model = Teacher
-        fields = ['name', 'subject_name', 'phone', 'email', 'money_per_hour', 'description', 'payment_way',
+        fields = ['name', 'subject_name', 'phone', 'email', 'money_per_hour',
+                  'description', 'payment_way',
                   'schedule']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'answer'}),
@@ -35,13 +42,17 @@ class TeacherProfileForm(forms.ModelForm):
 
 
 class TeacherProfileUpdateForm(forms.ModelForm):
+    '''TeacherProfileUpdateForm'''
     class Meta():
+        '''Meta'''
         model = Teacher
         fields = ['name', 'subject_name', 'email', 'phone', 'teacher_profile_pic', 'money_per_hour']
 
 
 class StudentProfileForm(forms.ModelForm):
+    '''StudentProfileForm'''
     class Meta():
+        '''Meta'''
         model = Student
         fields = ['name', 'language', 'phone', 'email', 'student_of']
         widgets = {
@@ -54,31 +65,41 @@ class StudentProfileForm(forms.ModelForm):
 
 
 class StudentProfileUpdateForm(forms.ModelForm):
+    '''StudentProfileUpdateForm'''
     class Meta():
+        '''Meta'''
         model = Student
         fields = ['name', 'language', 'email', 'phone', 'student_of', 'student_profile_pic']
 
 
 class MessageForm(forms.ModelForm):
+    '''MessageForm'''
     class Meta():
+        '''Meta'''
         model = MessageToTeacher
         fields = ['message']
 
 
 class NoticeForm(forms.ModelForm):
+    '''NoticeForm'''
     class Meta():
+        '''Meta'''
         model = ClassNotice
         fields = ['message']
 
 
 
 class FileForm(forms.ModelForm):
+    '''FileForm'''
     class Meta():
+        '''Meta'''
         model = ClassFile
         fields = ['file_name', 'file']
 
 
 class SubmitForm(forms.ModelForm):
+    '''SubmitForm'''
     class Meta():
+        '''Meta'''
         model = SubmitFile
         fields = ['submit']

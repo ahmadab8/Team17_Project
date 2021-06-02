@@ -11,5 +11,8 @@
     "python.testing.unittestEnabled": true,
     "python.testing.pytestArgs": [
         "classroom"
-    ]
+    ],
+      "python.linting.pylintArgs": [
+        "--disable=C0103"
+          ]
 }

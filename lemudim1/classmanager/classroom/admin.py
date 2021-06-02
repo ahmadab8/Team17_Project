@@ -1,6 +1,8 @@
+'''admin rules'''
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User,Student,Teacher,message_teach_admin,message_student_admin,MessageToTeacher,StudentsInClass,ClassNotice,Change_Salary_Demand,alert_for_users,Contact
+from .models import User,Student,Teacher,message_teach_admin,message_student_admin,\
+    MessageToTeacher,StudentsInClass,ClassNotice,Change_Salary_Demand,alert_for_users,Contact
 # Register your models here.
 
 
@@ -23,5 +25,6 @@ admin.site.register(Change_Salary_Demand)
 admin.site.register(alert_for_users)
 #message from contact
 admin.site.register(Contact)
-
-
+admin.site.site_url = None
+admin.site.site_header = 'Welcome to Our Website'
+admin.site.index_title = 'Admin tools'

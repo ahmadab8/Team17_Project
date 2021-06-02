@@ -1,31 +1,32 @@
+'''views'''
+# pylint: disable=C0103,W0702,E0402
+
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render
-from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
-from . models import  message_student_admin
-
 from django.shortcuts import render,get_object_or_404,redirect
 from django.views import generic
-from django.views.generic import  (View,TemplateView,
-                                  ListView,DetailView,
-                                  CreateView,UpdateView,
-                                  DeleteView)
-from django.utils.decorators import method_decorator
+from django.views.generic import DetailView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
 from django.urls import reverse
-from classroom import models
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
-from .models import Student,Teacher,ClassNotice,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
+from . models import  message_student_admin
+from . import models
+from .models import Student,Teacher,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,\
+    TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
+
+
 
 # Create your views here.
 
 
 
-def TeacherSignUp(request): 
+def Teacher_Sign_Up(request):
+    '''Teacher_Sign_Up'''
     user_type = 'teacher'
     registered = False
 
@@ -50,10 +51,12 @@ def TeacherSignUp(request):
         user_form = UserForm()
         teacher_profile_form = TeacherProfileForm()
 
-    return render(request,'classroom/teacher_signup.html',{'user_form':user_form,'teacher_profile_form':teacher_profile_form,'registered':registered,'user_type':user_type})
+    return render(request,'classroom/teacher_signup.html',{'user_form':user_form,
+        'teacher_profile_form':teacher_profile_form,'registered':registered,'user_type':user_type})
 
 
-def StudentSignUp(request): # *
+def Student_Sign_Up(request):
+    '''Student_Sign_Up'''
     user_type = 'student'
     registered = False
 
@@ -78,14 +81,17 @@ def StudentSignUp(request): # *
         user_form = UserForm()
         student_profile_form = StudentProfileForm()
 
-    return render(request,'classroom/student_signup.html',{'user_form':user_form,'student_profile_form':student_profile_form,'registered':registered,'user_type':user_type})
+    return render(request,'classroom/student_signup.html',{'user_form':user_form,
+    'student_profile_form':student_profile_form,'registered':registered,'user_type':user_type})
 
-def SignUp(request): 
+def Sign_Up(request):
+    '''Sign_Up'''
     return render(request,'classroom/signup.html',{})
 
 
 ## login view.
 def user_login(request):
+    '''user_login'''
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -110,11 +116,13 @@ def user_login(request):
 
 @login_required
 def user_logout(request):
+    '''user_logout'''
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
 @login_required
 def change_password(request):
+    '''change_password'''
     if request.method == 'POST':
         form = PasswordChangeForm(data=request.POST , user=request.user)
 
@@ -133,6 +141,7 @@ def change_password(request):
 
 @login_required
 def write_message(request,pk):
+    '''write_message'''
     message_sent = False
     teacher = get_object_or_404(models.Teacher,pk=pk)
 
@@ -146,10 +155,12 @@ def write_message(request,pk):
             message_sent = True
     else:
         form = MessageForm()
-    return render(request,'classroom/write_message.html',{'form':form,'teacher':teacher,'message_sent':message_sent})
+    return render(request,'classroom/write_message.html',
+                  {'form':form,'teacher':teacher,'message_sent':message_sent})
 
 
 def class_students_list(request):
+    '''class_students_list'''
     query = request.GET.get("q", None)
     students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
     students_list = [x.student for x in students]
@@ -171,17 +182,20 @@ def class_students_list(request):
     return render(request, template, context)
 
 class ClassStudentsListView(LoginRequiredMixin,DetailView):
+    '''ClassStudentsListView'''
     model = models.Teacher
     template_name = "classroom/class_students_list.html"
     context_object_name = "teacher"
 
 class StudentAllMsgList(LoginRequiredMixin, DetailView):
+    '''StudentAllMsgList'''
     model = models.Student
     template_name = "classroom/student_allmsg_list.html"
     context_object_name = "student"
 
 @login_required
 def update_msg(request, pk):
+    '''update_msg'''
     msg_updated = False
     obj = get_object_or_404(StudentMsg,pk=pk)
     if request.method == "POST":
@@ -197,6 +211,7 @@ def update_msg(request, pk):
 
 @login_required
 def class_notice(request,pk):
+    '''class_notice'''
     student = get_object_or_404(models.Student,pk=pk)
     return render(request,'classroom/class_notice_list.html',{'student':student})
 
@@ -204,6 +219,7 @@ def class_notice(request,pk):
 
 @login_required
 def add_notice(request):
+    '''add_notice'''
     notice_sent = False
     teacher = request.user.Teacher
     students = StudentsInClass.objects.filter(teacher=teacher)
@@ -224,7 +240,8 @@ def add_notice(request):
 
 
 
-def students_list(request):
+def students_list1(request):
+    '''students_list'''
     query = request.GET.get("q", None)
     students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
     students_list = [x.student for x in students]
@@ -247,6 +264,7 @@ def students_list(request):
     return render(request, template, context)
 
 def teachers_list(request):
+    '''teachers_list'''
     query = request.GET.get("q", None)
     qs = Teacher.objects.all()
     if query is not None:
@@ -260,22 +278,25 @@ def teachers_list(request):
     return render(request, template, context)
 
 
-class StudentAllMsgList(LoginRequiredMixin, DetailView):
+class Student_All_Msg_List(LoginRequiredMixin, DetailView):
+    '''Student_All_Msg_List'''
     model = models.Student
     template_name = "classroom/student_allmsg_list.html"
     context_object_name = "student"
-    
+
 @login_required
 def student_msg_list(request, pk):
-    error = True
+    ''''student_msg_list'''
     student = get_object_or_404(models.Student,pk=pk)
     teacher = request.user.Teacher
     given_msg = StudentMsg.objects.filter(teacher=teacher,student=student)
-    return render(request,'classroom/student_msg_list.html',{'student':student,'given_msg':given_msg})
+    return render(request,'classroom/student_msg_list.html',
+                  {'student':student,'given_msg':given_msg})
 
 
 @login_required
 def class_file(request):
+    '''class_file'''
     student = request.user.Student
     file = SubmitFile.objects.filter(student=student)
     file_list = [x.submitted_file for x in file]
@@ -283,11 +304,13 @@ def class_file(request):
 
 @login_required
 def file_list(request):
+    '''file_list'''
     teacher = request.user.Teacher
     return render(request,'classroom/file_list.html',{'teacher':teacher})
 
 @login_required
 def update_file(request, id=None):
+    '''update_file'''
     obj = get_object_or_404(ClassFile, id=id)
     form = FileForm(request.POST or None, instance=obj)
     context = {
@@ -305,6 +328,7 @@ def update_file(request, id=None):
 
 @login_required
 def file_delete(request, id=None):
+    '''file_delete'''
     obj = get_object_or_404(ClassFile, id=id)
     if request.method == "POST":
         obj.delete()
@@ -319,6 +343,7 @@ def file_delete(request, id=None):
 
 @login_required
 def upload_file(request):
+    '''upload_file'''
     file_uploaded = False
     teacher = request.user.Teacher
     students = Student.objects.filter(user_student_name__teacher=request.user.Teacher)
@@ -337,6 +362,7 @@ def upload_file(request):
 
 @login_required
 def submit_file(request, id=None):
+    '''submit_file'''
     student = request.user.Student
     file = get_object_or_404(ClassFile, id=id)
     teacher = file.teacher
@@ -355,17 +381,20 @@ def submit_file(request, id=None):
 
 @login_required
 def messages_list(request,pk):
+    '''messages_list'''
     teacher = get_object_or_404(models.Teacher,pk=pk)
     return render(request,'classroom/messages_list.html',{'teacher':teacher})
 
 
 @login_required
 def submit_list(request):
+    '''submit_list'''
     teacher = request.user.Teacher
     return render(request,'classroom/submit_list.html',{'teacher':teacher})
 
 @login_required
 def massege_teach_admin(request):
+    '''massege_teach_admin'''
     if request.method == 'POST':
         message1 = request.POST['message1']
         print(message1)
@@ -379,6 +408,7 @@ def massege_teach_admin(request):
 
 @login_required
 def massage_student_admin(request):
+    '''massage_student_admin'''
     if request.method == 'POST':
         message2 = request.POST['message2']
         print(message2)
@@ -392,6 +422,7 @@ def massage_student_admin(request):
 
 @login_required
 def change_Salary_Demand(request):
+    '''change_Salary_Demand'''
     if request.method == 'POST':
         salary = request.POST['Salary']
         username = request.POST['username1']
@@ -405,20 +436,41 @@ def change_Salary_Demand(request):
     context={}
 
     return render(request,'classroom/Change_Salary_Demand.html',context)
-class StudentDetailView(LoginRequiredMixin,DetailView):
+
+def Contact_Us(request):
+    '''Contact_Us'''
+    if request.method=="POST":
+        name=request.POST['username']
+        email=request.POST['email']
+        phone=request.POST['phone']
+        subject=request.POST['subject']
+        desc=request.POST['desc']
+        obj2 = Contact()
+        obj2.name=name
+        obj2.email=email
+        obj2.phone=phone
+        obj2.subject=subject
+        obj2.desc=desc
+        obj2.save()
+    return render(request,'classroom/contact.html',{})
+
+
+class Student_Detail_View(LoginRequiredMixin, DetailView):
+    '''Student_Detail_View'''
     context_object_name = "student"
     model = models.Student
     template_name = 'classroom/student_detail_page.html'
 
-    
-class TeacherDetailView(LoginRequiredMixin,DetailView):
+class Teacher_Detail_View(LoginRequiredMixin,DetailView):
+    '''Teacher_Detail_View'''
     context_object_name = "teacher"
     model = models.Teacher
     template_name = 'classroom/teacher_detail_page.html'
 
 
 @login_required
-def TeacherUpdateView(request,pk):
+def Teacher_Update_View(request,pk):
+    '''Teacher_Update_View'''
     profile_updated = False
     teacher = get_object_or_404(models.Teacher,pk=pk)
     if request.method == "POST":
@@ -431,14 +483,17 @@ def TeacherUpdateView(request,pk):
             profile_updated = True
     else:
         form = TeacherProfileUpdateForm(request.POST or None,instance=teacher)
-    return render(request,'classroom/teacher_update_page.html',{'profile_updated':profile_updated,'form':form})
+    return render(request,'classroom/teacher_update_page.html',
+                  {'profile_updated':profile_updated,'form':form})
 
 class add_student(LoginRequiredMixin,generic.RedirectView):
 
     def get_redirect_url(self,*args,**kwargs):
+        '''asd'''
         return reverse('classroom:students_list')
 
     def get(self,request,*args,**kwargs):
+        '''asd'''
         student = get_object_or_404(models.Student,pk=self.kwargs.get('pk'))
 
         try:
@@ -451,45 +506,17 @@ class add_student(LoginRequiredMixin,generic.RedirectView):
         return super().get(request,*args,**kwargs)
 
 
-def class_students_list(request):
-    query = request.GET.get("q", None)
-    students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
-    students_list = [x.student for x in students]
-    qs = Student.objects.all()
-    if query is not None:
-        qs = qs.filter(
-                Q(name__icontains=query)
-                )
-    qs_one = []
-    for x in qs:
-        if x in students_list:
-            qs_one.append(x)
-        else:
-            pass
-    context = {
-        "class_students_list": qs_one,
-    }
-    template = "classroom/class_students_list.html"
-    return render(request, template, context)
-
 def users_alert_messages(request):
+    '''users_alert_messages'''
     objs = alert_for_users.objects.all()
     context = {'objs': objs}
     return render(request, "classroom/alert.html", context)
 
-def Contact(request):
-    if request.method=="POST":
-        name=request.POST['username']
-        email=request.POST['email']
-        phone=request.POST['phone']
-        subject=request.POST['subject']
-        desc=request.POST['desc']
-        contact = Contact(name=name, email=email,phone=phone,subject=subject,desc=desc)
-        contact.save()
-    return render(request,'classroom/contact.html')
+
 
 @login_required
-def StudentUpdateView(request,pk):
+def Student_Update_View(request,pk):
+    '''Student_Update_View'''
     profile_updated = False
     student = get_object_or_404(models.Student,pk=pk)
     if request.method == "POST":
@@ -502,4 +529,5 @@ def StudentUpdateView(request,pk):
             profile_updated = True
     else:
         form = StudentProfileUpdateForm(request.POST or None,instance=student)
-    return render(request,'classroom/student_update_page.html',{'profile_updated':profile_updated,'form':form})
+    return render(request,'classroom/student_update_page.html',
+                  {'profile_updated':profile_updated,'form':form})

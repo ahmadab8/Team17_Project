@@ -1,20 +1,23 @@
+'''db'''
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
-from django.conf import settings
-import misaka
+#import misaka
 
 # Create your models here.
 
 
 
 class User(AbstractUser):
+    '''User'''
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
 
 
-class Student(models.Model): # *
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='Student')
+class Student(models.Model):
+    '''Student'''
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                primary_key=True, related_name='Student')
     name = models.CharField(max_length=250)
     student_of = models.CharField(max_length=250)
     language = models.CharField(max_length=250)
@@ -23,17 +26,21 @@ class Student(models.Model): # *
     student_profile_pic = models.ImageField(upload_to="classroom/student_profile_pic", blank=True)
 
     def get_absolute_url(self):
+        '''asd'''
         return reverse('classroom:student_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.name
+        return self.name.__str__()
 
     class Meta:
+        '''meta'''
         ordering = ['language']
 
 
-class Teacher(models.Model): # *
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='Teacher')
+class Teacher(models.Model):
+    '''Teacher'''
+    user = models.OneToOneField(User, on_delete=models.CASCADE,
+                                primary_key=True, related_name='Teacher')
     name = models.CharField(max_length=250)
     subject_name = models.CharField(max_length=250)
     email = models.EmailField(max_length=250)
@@ -46,13 +53,15 @@ class Teacher(models.Model): # *
     schedule = models.CharField(max_length=250)
 
     def get_absolute_url(self):
+        '''asd'''
         return reverse('classroom:teacher_detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.name
+        return self.name.__str__()
 
 
 class StudentsInClass(models.Model):
+    '''StudentsInClass'''
     teacher = models.ForeignKey(Teacher, related_name="class_teacher", on_delete=models.CASCADE)
     student = models.ForeignKey(Student, related_name="user_student_name", on_delete=models.CASCADE)
 
@@ -60,10 +69,12 @@ class StudentsInClass(models.Model):
         return self.student.name
 
     class Meta:
+        '''meta'''
         unique_together = ('teacher', 'student')
 
 
 class ClassNotice(models.Model):
+    '''ClassNotice'''
     teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE)
     students = models.ManyToManyField(Student, related_name='class_notice')
     created_at = models.DateTimeField(auto_now=True)
@@ -71,27 +82,31 @@ class ClassNotice(models.Model):
     message_html = models.TextField(editable=False)
 
     def __str__(self):
-        return self.message
+        return self.message.__str__()
 
     def save(self, *args, **kwargs):
+        '''save'''
         self.message_html = misaka.html(self.message)
         super().save(*args, **kwargs)
 
     class Meta:
+        '''meta'''
         ordering = ['-created_at']
         unique_together = ['teacher', 'message']
 
 class StudentMsg(models.Model):
+    '''StudentMsg'''
     teacher = models.ForeignKey(Teacher, related_name='given_msg', on_delete=models.CASCADE)
     student = models.ForeignKey(Student, related_name="msg", on_delete=models.CASCADE)
     subject_name = models.CharField(max_length=250)
     msg_obtained = models.TextField()
 
     def __str__(self):
-        return self.subject_name
+        return self.subject_name.__str__()
 
 #msg between student and teacher
 class MessageToTeacher(models.Model):
+    '''MessageToTeacher'''
     student = models.ForeignKey(Student, related_name='student', on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
@@ -99,19 +114,22 @@ class MessageToTeacher(models.Model):
     message_html = models.TextField(editable=False)
 
     def __str__(self):
-        return self.message
+        return self.message.__str__()
 
     def save(self, *args, **kwargs):
+        '''save'''
         self.message_html = misaka.html(self.message)
         super().save(*args, **kwargs)
 
     class Meta:
+        '''Meta'''
         ordering = ['-created_at']
         unique_together = ['student', 'message']
 
 
 
 class ClassFile(models.Model):
+    '''ClassFile'''
     student = models.ManyToManyField(Student, related_name='student_file')
     teacher = models.ForeignKey(Teacher, related_name='teacher_file', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
@@ -119,13 +137,15 @@ class ClassFile(models.Model):
     file = models.FileField(upload_to='files')
 
     def __str__(self):
-        return self.file_name
+        return self.file_name.__str__()
 
     class Meta:
+        '''Meta'''
         ordering = ['-created_at']
 
 
 class SubmitFile(models.Model):
+    '''SubmitFile'''
     student = models.ForeignKey(Student, related_name='student_submit', on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, related_name='teacher_submit', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
@@ -137,40 +157,46 @@ class SubmitFile(models.Model):
         return "Submitted" + str(self.submitted_file.file_name)
 
     class Meta:
+        '''Meta'''
         ordering = ['-created_at']
 
 
 class message_teach_admin(models.Model):
+    '''message_teach_admin'''
    # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
     message = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.message
+        return self.message.__str__()
 class Change_Salary_Demand(models.Model):
+    '''message_teach_admin'''
    # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
     TeacherName = models.CharField(max_length=50)
     salary = models.CharField(max_length=20)
     def __str__(self):
-       return self.TeacherName
+        return self.TeacherName.__str__()
 
 
 
 class message_student_admin(models.Model):
+    '''message_teach_admin'''
    # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
     message = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.message
+        return self.message.__str__()
 
 
 class alert_for_users(models.Model):
+    '''message_teach_admin'''
    # teacher = models.ForeignKey(Teacher, related_name='messages', on_delete=models.CASCADE)
     message = models.TextField(max_length=1000)
 
     def __str__(self):
-        return self.message
+        return self.message.__str__()
 
 class Contact(models.Model):
+    '''message_teach_admin'''
     name = models.CharField(max_length=250)
     email = models.EmailField()
     phone = models.CharField(max_length=10)
