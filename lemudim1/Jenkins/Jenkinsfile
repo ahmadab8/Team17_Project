@@ -22,17 +22,13 @@ pipeline {
                 }
             }
         }
-          stage('Linting') { // Run pylint against your code
-      steps {
-        script {
-          sh """
-          pylint **/*.py
-          """
-        }
-      }
+         /*  stage('Linting') {//pylint code
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("lemudim1/classmanager/classroom"){
+                        sh "pylint urls.py"
+                    }
+                }
+            }
+        }*/
     }
-    }
-
-
-    }
-}
