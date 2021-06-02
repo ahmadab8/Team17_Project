@@ -12,7 +12,5 @@
     "python.testing.pytestArgs": [
         "classroom"
     ],
-      "python.linting.pylintArgs": [
-        "--disable=C0103"
-          ]
+      "python.linting.pylintArgs": ["--generate-members","--load-plugins","pylint_django"]
 }
