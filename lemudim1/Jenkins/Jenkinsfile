@@ -26,7 +26,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
-                        sh "pylint urls.py"
+                        sh "python -m pylint urls.py"
                     }
                 }
             }
