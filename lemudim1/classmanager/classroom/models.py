@@ -1,8 +1,9 @@
 '''db'''
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+# pylint: disable=R0903,C0103
 from django.urls import reverse
-#import misaka
+import misaka
 
 # Create your models here.
 

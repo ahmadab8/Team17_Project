@@ -1,30 +1,30 @@
-from django.http import response
+'''tests'''
 from django.test import TestCase,Client
 from django.core.validators import validate_email
-from django.contrib.auth import authenticate
-from .models import *
 from django.contrib.auth.password_validation import validate_password
+# pylint: disable=E0602,C0116,W1309,C0103,E0402
 from .views import *
 from .auth import *
 # Create your tests here.
 
 class BaseTest(TestCase):
+    '''basetest'''
     def setUp(self):
-       
+
         self.user = {
                 'email': 'testemail@gmail.com',
                 'username': 'username',
                 'password1': 'password4756',
                 'password2': 'password4756',
-                
-                
+
+
             }
         self.user_short_password = {
                 'email': 'testemail@gmail.com',
                 'username': 'username',
                 'password1': 'tes121qweqwe',
                 'password2': 'tes',
-                
+
             }
         self.user_unmatching_password = {
 
@@ -32,7 +32,7 @@ class BaseTest(TestCase):
                 'username': 'username',
                 'password1': 'teslatto',
                 'password2': 'teslatto',
-                
+
             }
 
         self.user_invalid_email = {
@@ -41,7 +41,7 @@ class BaseTest(TestCase):
                 'username': 'username',
                 'password1': 'teslatto',
                 'password2': 'teslatto',
-                
+
             }
         return super().setUp()
 
@@ -49,6 +49,7 @@ class BaseTest(TestCase):
 
 
 class Unit_Test_url(TestCase):
+    '''Unit_Test_url'''
 #29 url test
 
     def test_massege_teach_admin_url_page_correctly(self):
@@ -80,10 +81,10 @@ class Unit_Test_url(TestCase):
         self.assertEqual(response.status_code, 302)
     def test_signup_url_page_correctly(self):
         response = self.client.get('/classroom/signup/')
-        self.assertEqual(response.status_code, 200)  
+        self.assertEqual(response.status_code, 200)
     def test_class_students_list_url_page_correctly(self):
         response = self.client.get('/classroom/teacher/class_students_list')
-        self.assertEqual(response.status_code, 302)              
+        self.assertEqual(response.status_code, 302)
     def test_login_url_page_correctly(self):
         response = self.client.get('/classroom/login/')
         self.assertEqual(response.status_code, 200)
@@ -98,7 +99,7 @@ class Unit_Test_url(TestCase):
         self.assertEqual(response.status_code, 200)
     def test_message_student_admin_url_page_correctly(self):
         response = self.client.get('/classroom/message_student_admin/')
-        self.assertEqual(response.status_code, 302)   
+        self.assertEqual(response.status_code, 302)
     def test_upload_file_url_page_correctly(self):
         response = self.client.get('/classroom/upload_file/')
         self.assertEqual(response.status_code, 302)
@@ -140,6 +141,7 @@ class Unit_Test_url(TestCase):
         self.assertEqual(response.status_code,302)
 
 class Unit_Test_form(TestCase):
+    '''Unit_Test_form'''
 #6 form test
     def test_valid_Form(self):
         data={'message':'test'}
@@ -169,10 +171,11 @@ class Unit_Test_form(TestCase):
 
 
 class Unit_Test_template(BaseTest):
+    '''Unit_Test_template'''
 #6 template test
     def test_HomePage_view_page_correctly(self):
         response = self.client.get('/')
-        self.assertTemplateUsed(response, 'classroom/index.html') 
+        self.assertTemplateUsed(response, 'classroom/index.html')
     def test_login_view_page_correctly(self):
         response = self.client.get('/classroom/login/')
         self.assertTemplateUsed(response, 'classroom/login.html')
@@ -191,6 +194,7 @@ class Unit_Test_template(BaseTest):
 
 
 class Unit_Test_func(BaseTest):
+    '''Unit_Test_func'''
 #22 func view test
     def test_func_changepass(self):
         response = self.client.get(f'/classroom/change_password/')
@@ -265,13 +269,15 @@ class Unit_Test_func(BaseTest):
 
 
 class RegisterTest(BaseTest):
+    '''RegisterTest'''
 #7 reg test
     def test_cant_register_user_with_invalid_email(self):
-       validate_email(self.user_invalid_email['email'])    
+        validate_email(self.user_invalid_email['email'])
     def test_cant_register_user_withshortpassword(self):
         validate_password(self.user_short_password['password1'])
     def test_cant_register_user_unmatchingpassword(self):
-        self.assertEqual(self.user_unmatching_password['password1'],self.user_unmatching_password['password2'])
+        self.assertEqual(self.user_unmatching_password['password1']
+                         ,self.user_unmatching_password['password2'])
     def test_student_register(self):
         a=auth()
         s=User.objects.create(username='username',password='password123',is_student=True)
@@ -301,14 +307,14 @@ class RegisterTest(BaseTest):
         deleteds=User.objects.filter(username='username').first()
         self.assertIsNone(deleteds)
 
-    
-    
+
 
 class integrationtest(TestCase):
+    '''integrationtest'''
 #5 integration test
     def test_login_techer_add_notice_changepass(self):
-        
-        c=Client()        
+
+        c=Client()
 
         response = c.get(f'/classroom/change_password/')
         self.assertEqual(response.status_code, 302)
@@ -319,7 +325,7 @@ class integrationtest(TestCase):
         self.assertEqual(response1.resolver_match.func,add_notice)
 
     def test_login_Student_changepass_massage_student_admin(self):
-        
+
         c=Client()
 
         response = c.get(f'/classroom/change_password/')
@@ -329,12 +335,12 @@ class integrationtest(TestCase):
         response1 = c.get(f'/classroom/message_student_admin/')
         self.assertEqual(response1.status_code, 302)
         self.assertEqual(response1.resolver_match.func,massage_student_admin)
-      
+
 
     def test_login_Student_submit_file_class_file(self):
-     
+
         c=Client()
-        
+
         response = c.get(f'/classroom/class_file/')
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.resolver_match.func,class_file)
@@ -342,7 +348,7 @@ class integrationtest(TestCase):
         response1 = c.get(f'/classroom/submit_file/5/')
         self.assertEqual(response1.status_code, 302)
         self.assertEqual(response1.resolver_match.func,submit_file)
-      
+
     def test_upload_file_update_file_delete_file(self):
         c=Client()
 
@@ -357,7 +363,7 @@ class integrationtest(TestCase):
         response1 = c.get(f'/classroom/file_delete/5/')
         self.assertEqual(response1.status_code, 302)
         self.assertEqual(response1.resolver_match.func,file_delete)
-      
+
 
     def test_student_class_class_notice_change_Salary_Demand(self):
 
@@ -373,4 +379,3 @@ class integrationtest(TestCase):
         response1 = c.get(f'/classroom/student/5/class_notice')
         self.assertEqual(response1.status_code, 302)
         self.assertEqual(response1.resolver_match.func,class_notice)
-      

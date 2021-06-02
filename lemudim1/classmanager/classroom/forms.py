@@ -1,6 +1,7 @@
 '''forms page'''
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+# pylint: disable=R0903
 from .models import User, Teacher, Student,ClassNotice,SubmitFile,\
     ClassFile,MessageToTeacher
 
@@ -103,3 +104,4 @@ class SubmitForm(forms.ModelForm):
         '''Meta'''
         model = SubmitFile
         fields = ['submit']
+

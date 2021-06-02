@@ -1,5 +1,5 @@
 '''views'''
-# pylint: disable=C0103,W0702,E0402
+# pylint: disable=C0103,W0702,E0402,R0901
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -16,7 +16,8 @@ from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
 from . models import  message_student_admin
 from . import models
 from .models import Student,Teacher,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm\
+ ,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
 
 
 
@@ -159,6 +160,7 @@ def write_message(request,pk):
 
 @login_required
 def class_students_list(request):
+    '''class_students_list'''
     query = request.GET.get("q", None)
     students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
     students_list = [x.student for x in students]
@@ -209,6 +211,7 @@ def update_msg(request, pk):
 
 @login_required
 def class_notice(request,pk):
+    '''class_notice'''
     student = get_object_or_404(models.Student,pk=pk)
     return render(request,'classroom/class_notice_list.html',{'student':student})
 
@@ -399,9 +402,6 @@ def massege_teach_admin(request):
         obj = message_teach_admin()
         obj.message=message1
         obj.save()
-
-    context={}
-
     return render(request,'classroom/massege_teach_admin.html',{})
 
 @login_required
@@ -413,9 +413,6 @@ def massage_student_admin(request):
         obj2 = message_student_admin()
         obj2.message=message2
         obj2.save()
-
-    context={}
-
     return render(request,'classroom/message_student_admin.html',{})
 
 @login_required
@@ -526,4 +523,5 @@ def Student_Update_View(request,pk):
             profile_updated = True
     else:
         form = StudentProfileUpdateForm(request.POST or None,instance=student)
-    return render(request,'classroom/student_update_page.html',{'profile_updated':profile_updated,'form':form})
+    return render(request,'classroom/student_update_page.html',
+                  {'profile_updated':profile_updated,'form':form})
