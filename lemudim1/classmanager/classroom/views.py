@@ -16,8 +16,7 @@ from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
 from . models import  message_student_admin
 from . import models
 from .models import Student,Teacher,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,\
-    TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
 
 
 
@@ -158,9 +157,8 @@ def write_message(request,pk):
     return render(request,'classroom/write_message.html',
                   {'form':form,'teacher':teacher,'message_sent':message_sent})
 
-
+@login_required
 def class_students_list(request):
-    '''class_students_list'''
     query = request.GET.get("q", None)
     students = StudentsInClass.objects.filter(teacher=request.user.Teacher)
     students_list = [x.student for x in students]
@@ -211,7 +209,6 @@ def update_msg(request, pk):
 
 @login_required
 def class_notice(request,pk):
-    '''class_notice'''
     student = get_object_or_404(models.Student,pk=pk)
     return render(request,'classroom/class_notice_list.html',{'student':student})
 
@@ -239,7 +236,7 @@ def add_notice(request):
 
 
 
-
+@login_required
 def students_list1(request):
     '''students_list'''
     query = request.GET.get("q", None)
@@ -358,7 +355,8 @@ def upload_file(request):
             file_uploaded = True
     else:
         form = FileForm()
-    return render(request,'classroom/upload_file.html',{'form':form,'file_uploaded':file_uploaded})
+    template = "classroom/upload_file.html"
+    return render(request,template,{'form':form,'file_uploaded':file_uploaded})
 
 @login_required
 def submit_file(request, id=None):
@@ -470,7 +468,6 @@ class Teacher_Detail_View(LoginRequiredMixin,DetailView):
 
 @login_required
 def Teacher_Update_View(request,pk):
-    '''Teacher_Update_View'''
     profile_updated = False
     teacher = get_object_or_404(models.Teacher,pk=pk)
     if request.method == "POST":
@@ -529,5 +526,4 @@ def Student_Update_View(request,pk):
             profile_updated = True
     else:
         form = StudentProfileUpdateForm(request.POST or None,instance=student)
-    return render(request,'classroom/student_update_page.html',
-                  {'profile_updated':profile_updated,'form':form})
+    return render(request,'classroom/student_update_page.html',{'profile_updated':profile_updated,'form':form})
