@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint1') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint2') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint3') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -49,7 +49,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint4') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -58,7 +58,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint5') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
@@ -67,7 +67,7 @@ pipeline {
                 }
             }
         }
-        stage('pylint') {
+        stage('pylint6') {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager/classroom"){
