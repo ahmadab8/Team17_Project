@@ -460,6 +460,7 @@ class Teacher_Detail_View(LoginRequiredMixin,DetailView):
 
 @login_required
 def Teacher_Update_View(request,pk):
+    '''asd'''
     profile_updated = False
     teacher = get_object_or_404(models.Teacher,pk=pk)
     if request.method == "POST":
@@ -476,7 +477,7 @@ def Teacher_Update_View(request,pk):
                   {'profile_updated':profile_updated,'form':form})
 
 class add_student(LoginRequiredMixin,generic.RedirectView):
-
+    '''asd'''
     def get_redirect_url(self,*args,**kwargs):
         '''asd'''
         return reverse('classroom:students_list')

@@ -8,7 +8,7 @@ from .auth import *
 # Create your tests here.
 
 class BaseTest(TestCase):
-    '''basetest'''
+    '''base_test'''
     def setUp(self):
 
         self.user = {
