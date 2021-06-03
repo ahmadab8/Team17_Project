@@ -1,7 +1,7 @@
 '''forms page'''
+# pylint: disable=R0903,E0402,C0305
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-# pylint: disable=R0903
 from .models import User, Teacher, Student,ClassNotice,SubmitFile,\
     ClassFile,MessageToTeacher,StudentMsg
 
@@ -82,7 +82,9 @@ class MessageForm(forms.ModelForm):
 
 
 class MsgForm(forms.ModelForm):
+    '''Mesaage Form'''
     class Meta():
+        '''message form meta'''
         model = StudentMsg
         fields = ['subject_name', 'msg_obtained']
 

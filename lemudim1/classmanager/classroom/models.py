@@ -1,5 +1,5 @@
 '''db'''
-# pylint: disable=R0903,C0103,C0304,E0602,E1101
+# pylint: disable=R0903,C0103,C0304,E0602,E1101,E0402,C0305
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
@@ -75,13 +75,14 @@ class StudentsInClass(models.Model):
 
 
 class StudentMsg(models.Model):
+    '''Student Message'''
     teacher = models.ForeignKey(Teacher, related_name='given_msg', on_delete=models.CASCADE)
     student = models.ForeignKey(Student, related_name="msg", on_delete=models.CASCADE)
     subject_name = models.CharField(max_length=250)
     msg_obtained = models.TextField()
 
     def __str__(self):
-        return self.subject_name
+        return self.subject_name.__str__()
 
 
 
@@ -107,15 +108,7 @@ class ClassNotice(models.Model):
         ordering = ['-created_at']
         unique_together = ['teacher', 'message']
 
-class StudentMsg(models.Model):
-    '''StudentMsg'''
-    teacher = models.ForeignKey(Teacher, related_name='given_msg', on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, related_name="msg", on_delete=models.CASCADE)
-    subject_name = models.CharField(max_length=250)
-    msg_obtained = models.TextField()
 
-    def __str__(self):
-        return self.subject_name.__str__()
 
 #msg between student and teacher
 class MessageToTeacher(models.Model):

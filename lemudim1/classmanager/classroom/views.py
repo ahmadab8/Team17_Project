@@ -16,7 +16,8 @@ from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
 from . models import  message_student_admin
 from . import models
 from .models import Student,Teacher,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm,MsgForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,\
+TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm,MsgForm
 
 
 
@@ -195,6 +196,7 @@ class StudentAllMsgList(LoginRequiredMixin, DetailView):
 
 @login_required
 def add_msg(request, pk):
+    '''Add Message'''
     msg_given = False
     student = get_object_or_404(models.Student,pk=pk)
     if request.method == "POST":
@@ -208,7 +210,8 @@ def add_msg(request, pk):
             return redirect('classroom:submit_list')
     else:
         form = MsgForm()
-    return render(request,'classroom/add_msg.html',{'form':form,'student':student,'msg_given':msg_given})
+    return render(request,'classroom/add_msg.html',
+    {'form':form,'student':student,'msg_given':msg_given})
 
 
 @login_required
