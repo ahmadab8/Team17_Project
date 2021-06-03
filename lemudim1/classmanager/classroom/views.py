@@ -193,6 +193,25 @@ class StudentAllMsgList(LoginRequiredMixin, DetailView):
     template_name = "classroom/student_allmsg_list.html"
     context_object_name = "student"
 
+
+@login_required
+def add_msg(request, pk):
+    msg_given = False
+    student = get_object_or_404(models.Student,pk=pk)
+    if request.method == "POST":
+        form = MsgForm(request.POST)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.student = student
+            msg.teacher = request.user.Teacher
+            msg.save()
+            messages.success(request,'Msg uploaded successfully!')
+            return redirect('classroom:submit_list')
+    else:
+        form = MsgForm()
+    return render(request,'classroom/add_msg.html',{'form':form,'student':student,'msg_given':msg_given})
+
+
 @login_required
 def update_msg(request, pk):
     '''update_msg'''
