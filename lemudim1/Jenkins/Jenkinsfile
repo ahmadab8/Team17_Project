@@ -38,12 +38,12 @@ pipeline {
         }
         stage('coverage') {
             steps {
-                
+                withEnv(["HOME=${env.WORKSPACE}"]) {
                     dir("lemudim1/classmanager"){
                         sh "python -m coverage run manage.py test"
                         sh "python -m coverage report"
                     }
-                
+                }
             }
         }
 
