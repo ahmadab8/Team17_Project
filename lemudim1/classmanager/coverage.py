@@ -4,6 +4,7 @@ branch = True
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =
+        manage.py
     # Have to re-enable the standard pragma
     pragma: no cover
 
