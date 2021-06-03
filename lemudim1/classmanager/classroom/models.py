@@ -74,6 +74,18 @@ class StudentsInClass(models.Model):
         unique_together = ('teacher', 'student')
 
 
+class StudentMsg(models.Model):
+    teacher = models.ForeignKey(Teacher, related_name='given_msg', on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, related_name="msg", on_delete=models.CASCADE)
+    subject_name = models.CharField(max_length=250)
+    msg_obtained = models.TextField()
+
+    def __str__(self):
+        return self.subject_name
+
+
+
+
 class ClassNotice(models.Model):
     '''ClassNotice'''
     teacher = models.ForeignKey(Teacher, related_name='teacher', on_delete=models.CASCADE)

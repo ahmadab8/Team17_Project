@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 # pylint: disable=R0903
 from .models import User, Teacher, Student,ClassNotice,SubmitFile,\
-    ClassFile,MessageToTeacher
+    ClassFile,MessageToTeacher,StudentMsg
 
 
 class UserForm(UserCreationForm):
@@ -79,6 +79,12 @@ class MessageForm(forms.ModelForm):
         '''Meta'''
         model = MessageToTeacher
         fields = ['message']
+
+
+class MsgForm(forms.ModelForm):
+    class Meta():
+        model = StudentMsg
+        fields = ['subject_name', 'msg_obtained']
 
 
 class NoticeForm(forms.ModelForm):

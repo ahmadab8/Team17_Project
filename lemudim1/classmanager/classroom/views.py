@@ -16,8 +16,7 @@ from .models import message_teach_admin, Change_Salary_Demand, alert_for_users
 from . models import  message_student_admin
 from . import models
 from .models import Student,Teacher,StudentsInClass,StudentMsg,SubmitFile,ClassFile,Contact
-from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm\
- ,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm
+from .forms import UserForm,TeacherProfileForm,FileForm,SubmitForm,StudentProfileForm,TeacherProfileUpdateForm,StudentProfileUpdateForm,NoticeForm,MessageForm,MsgForm
 
 
 
