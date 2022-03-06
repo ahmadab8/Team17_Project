@@ -1,0 +1,35 @@
+# .gitignore
+# Project files and directories
+/classmanager/static/
+/classmanager/tmp/
+/classmanager/media/
+/var/jenkins_home/workspace/Team_17/pipe1/.local/lib/python3.8/site-packages/sqlparse/
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+# C extensions
+*.so
+# PyInstaller
+*.manifest
+*.spec
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+# Translations
+*.pot
+# Django stuff:
+*.log
+# Sphinx documentation
+docs/_build/
+# PyBuilder
+target/

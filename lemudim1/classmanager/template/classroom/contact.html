@@ -1,0 +1,48 @@
+{% extends "classroom/base.html" %}
+
+{% load static %}
+{% block content %}
+
+    <div class="about">
+    <div class=" container">
+        <h2 class="text-center my-3">תשאיר פרטים שלך ונשמח  ליצור איתך קשר</h2>
+        <form method="post" >
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Your Username" />
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput">Email address</label>
+            <input type="email" class="form-control" id="exampleFormControlInput" name="email" placeholder="name@example.com" />
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone number</label>
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Your Number" />
+        </div>
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" id="subject" name="subject" placeholder="Your subject/requests/rate/report/discounts/help/else" />
+        </div>
+         <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="desc" name="desc" row="3" placeholder="Write your description here"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+      <h1 style="text-align: center">נענה בקרוב </h1>
+            <h6 style="text-align: right">באר שבע ,בלפור 35, קומה 11 </h6>
+                  <h6 style="text-align: right">טלפון:0463282233</h6>
+                  <h6 style="text-align: right"> Lemudim.help@hotmail.co.il </h6>
+                        <h6 style="text-align: right"> </h6>
+                        <h6 style="text-align: right">-----------------------------------------------</h6>
+                        <h6 style="text-align: right">Lemudim© 2021 </h6>
+
+    </div>
+    </div>
+
+{% endblock %}
+
+
+
+

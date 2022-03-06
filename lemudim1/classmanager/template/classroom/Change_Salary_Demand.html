@@ -1,0 +1,24 @@
+{% extends 'classroom/base.html' %}
+{% block content %}
+
+<div class="container">
+<div class="jumbotron">
+  {% if notice_sent %}
+  <h1>Your message sent successfully.</h1>
+  {% else %}
+  <h3>Please enter your message and recognize your self .</h3>
+  <hr>
+  <form method="post">
+    {% csrf_token %}
+      <input type="text" name="username1" placeholder="Enter your username">
+      <br>
+      <input type="text" name="Salary" placeholder="Enter the new salary you wants">
+    <br>
+    <input type="submit" class="btn btn-primary" style="background-color: forestgreen" value="Send Demand">
+  </form>
+  {% endif %}
+</div>
+</div>
+
+
+{%  endblock %}

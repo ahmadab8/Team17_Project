@@ -1,0 +1,57 @@
+{% extends 'classroom/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="profile">
+  <img src="{% static 'images/profile-background-3.PNG' %}" alt="">
+  <div class="profile-box">
+    {% if teacher.teacher_profile_pic %}
+    <img src="{{ teacher.teacher_profile_pic.url }}" alt="">
+    {% else %}
+    <img src="{% static 'images/login-avatar.PNG' %}" alt="">
+    {% endif %}
+    <div class="profile-details">
+      <h1>{{ teacher.name }}</h1>
+      <br>
+      <p> Username: {{ teacher.user.username }}</p>
+      <h6> Subject Name: {{ teacher.subject_name }}</h6>
+      <h6> Phone: {{ teacher.phone }}</h6>
+      <h6> Email ID: {{ teacher.email }}</h6>
+      <h6> Money per hour: {{ teacher.money_per_hour }}</h6>
+      <h6> Payment Way: {{ teacher.payment_way }}</h6>
+      <h6> Schedule: {{ teacher.schedule }}</h6>
+      <h6> Description: {{ teacher.description }}</h6>
+      <a href="{% url 'classroom:teacher_update' pk=user.pk %}"><p class="edit-button">Edit profile</p></a>
+    </div>
+  </div>
+</div>
+
+
+<!--
+<div class="row">
+  <div class="col-md-3">
+    {% if teacher.teacher_profile_pic %}
+      <img src="{{ teacher.teacher_profile_pic.url }}" style="width:100px;height:100px;">
+    {% else %}
+      <img src="" alt="">
+    {% endif %}
+  </div>
+  <div class="col-md-9">
+    <h1>{{ teacher.user.username }}</h1>
+    <br>
+    <p>Name: {{ teacher.name }}</p>
+    <p>Subject: {{ teacher.subject_name }}</p>
+    <p>Email: {{ teacher.email }}</p>
+    <p>Phone: {{ teacher.phone }}</p>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <p><a class="btn btn-primary" href="{% url 'classroom:teacher_update' pk=user.pk %}">Edit profile</a></p>
+      </div>
+      <div class="col-md-6">
+        <p><a class="btn btn-danger" href="{% url 'classroom:write_notice' %}">Add Notice</a></p>
+      </div>
+    </div>
+</div>
+-->
+{% endblock %}

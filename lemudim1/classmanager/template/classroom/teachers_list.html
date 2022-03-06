@@ -1,0 +1,100 @@
+{% extends "classroom/base.html" %}
+{% load static %}
+{% block content %}
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/searchbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/newbase.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+    </script>
+
+
+</script>
+
+<div class="toggle">
+       <h4><a href="http://127.0.0.1:8000/classroom/teachers_list/">display all the list</a></h4> 
+       <h4> <form method='GET' action="{% url 'classroom:teachers_list' %}" class="searchme"><p>Search subject: <input type='search' name='q' placeholder='subject'></p></form></h4>
+</div>
+
+
+
+
+<div class="student-list">
+<div class="container">
+  <form method='GET' action="{% url 'classroom:teachers_list' %}">
+  </form>
+  <div class="row">
+  {% for teacher in teachers_list %}
+  <div class="col-6 col-md-4">
+  <div class="student-box">
+    <div class="imgBx">
+
+      {% if teacher.teacher_profile_pic %}
+      <img src="{{ teacher.teacher_profile_pic.url }}" alt="">
+      {% else %}
+      {% if forloop.counter0|divisibleby:"3" %}
+      <img src="{% static 'images/login-avatar.PNG' %}" alt="">
+      {% else %}
+      <img src="{% static 'images/login-avatar-2.PNG' %}" alt="">
+      {% endif %}
+      {% endif %}
+    </div>
+    <div class="content">
+      <h3>{{ teacher.name }}</h3>
+
+            <a href="{% url 'classroom:write_message' pk=teacher.pk %}"><p class="add-button">Message</p> </a>
+
+      <h6>Subject Name: {{ teacher.subject_name }}</h6>
+      <h6> Phone: {{ teacher.phone }}</h6>
+      <h6> Email ID: {{ teacher.email }}</h6>
+      <h6> Money per hour: {{ teacher.money_per_hour }}</h6>
+      <h6> Payment Way: {{ teacher.payment_way }}</h6>
+      <h6> Schedule: {{ teacher.schedule }}</h6>
+      <h7> Description: {{ teacher.description }}</h7>
+
+
+
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+  </div>
+</div>
+</div>
+
+
+
+<!--
+  <div class="jumbotron">
+    <h1>Given below is the list of all Teacher</h1>
+    <h3>Click on "message" to message teacher</h3>
+
+    <form method='GET' action="{% url 'classroom:teachers_list' %}">
+      <input type='search' name='q' placeholder='Search'>
+    </form>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Subject</th>
+          <th scope="col"> </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for teacher in teachers_list %}
+        <tr>
+          <th>{{ teacher.name }}</th>
+          <th>{{ teacher.subject_name }}</th>
+          <th> <a class="btn btn-primary" href="{% url 'classroom:write_message' pk=teacher.pk %}">Message</a> </th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+-->
+{% endblock %}

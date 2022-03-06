@@ -1,0 +1,59 @@
+pipeline {
+    agent {
+        docker {
+            image 'python:3.8.0'
+
+        }
+    }
+    stages {
+        stage('build') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh "python -m pip install -r lemudim1/requirements.txt --user"
+                }
+            }
+        }
+        stage('test') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("lemudim1/classmanager"){
+                        sh "python manage.py test"
+                    }
+                }
+            }
+        }
+        stage('pylint') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("lemudim1/classmanager/classroom"){
+                        sh "python -m pylint urls.py"
+                        sh "python -m pylint views.py"
+                        sh "python -m pylint admin.py"
+                        sh "python -m pylint apps.py"
+                        sh "python -m pylint models.py"
+                        sh "python -m pylint tests.py"
+                        sh "python -m pylint forms.py"
+                    }
+                    dir("lemudim1/classmanager/classmanager"){
+                        sh "python -m pylint urls.py"
+                        sh "python -m pylint settings.py"
+                        
+                    }
+                }
+            }
+        }
+        stage('coverage') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    dir("lemudim1/classmanager"){
+                        sh "python -m coverage run --include='classroom/*' manage.py test"
+                        sh "python -m coverage report"
+                    }
+                }
+            }
+        }
+
+
+
+    }
+}

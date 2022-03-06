@@ -1,0 +1,48 @@
+{% extends 'classroom/base.html' %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+    <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+  {% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="banner">
+      
+      <div class="content">
+        <header style="color: antiquewhite">Private Lessions [Best way to learn ] </header>
+          <br>
+      </div>
+    </div>
+        
+    </div>
+
+    
+    <div class="research">
+      <div class="row">
+          <div class="digital-content">
+            <h1 style="color: lime ; background-color: white">About us</h1>
+            <br>
+            <h2> אנחנו קבוצת סטודנטים שפיתחנו את האתר הזה על מנת לעזור ולהנמיך מהקשיים שכל סטודנט מרגיש בתקופת הקורונה, המטרה שלנו לעזור לכל המשתמשים באתר זה, מקווים שתהנו      </h2>
+
+          </div>
+      </div>
+    </div>
+
+    <div class="social">
+      <a href="{% url 'classroom:contact' %}"><h1>Contact us</h1></a>
+      <h3>Email: team17.2021@gmail.com</h3>
+      <h3>Phone: 08-610748</h3>
+      <h3>Address:באר שבע,בזל 29,קומה 6</h3>
+      <h3>Postal code:8400711</h3>
+      <h3>------------------------------------------------------</h3>
+    </div>
+
+{% endblock %}
+
